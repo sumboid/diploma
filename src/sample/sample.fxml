@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <tabs>
       <Tab text="Untitled Tab" />
     <Tab text="Untitled Tab 1">
@@ -88,14 +89,7 @@
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="275.0" prefWidth="222.0" />
                                               <AnchorPane>
                                                    <children>
-                                                       <LineChart fx:id="realtimeChart" alternativeColumnFillVisible="true" createSymbols="false" horizontalGridLinesVisible="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" title="Real-time chart" verticalGridLinesVisible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                           <xAxis>
-                                                               <NumberAxis side="BOTTOM" />
-                                                           </xAxis>
-                                                           <yAxis>
-                                                               <NumberAxis side="LEFT" />
-                                                           </yAxis>
-                                                       </LineChart>
+
                                                    </children>
                                                 </AnchorPane>
                                             </items>
@@ -111,64 +105,83 @@
             </AnchorPane>
          </content>
     </Tab>
-    <Tab text="Untitled Tab 2">
-         <content>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <CheckBox fx:id="ggwcg" mnemonicParsing="false" text="CheckBox" />
-                  <ComboBox prefWidth="150.0" />
-                  <Button mnemonicParsing="false" onAction="#derg" text="Button" />
-                  <Label fx:id="actiontarget" text="Label" />
-                  <ProgressBar prefWidth="200.0" progress="0.0" />
-                  <TextField />
-                  <TextField />
-                  <TextField />
-               </children>
-            </VBox>
-         </content>
-    </Tab>
-      <Tab text="Config">
-         <content>
-            <HTMLEditor htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefHeight="200.0" prefWidth="506.0" />
-         </content>
-      </Tab>
       <Tab text="Runtime">
          <content>
-            <SplitPane dividerPositions="0.2" prefHeight="160.0" prefWidth="200.0">
-              <items>
-                  <Accordion>
-                    <panes>
-                      <TitledPane animated="false" text="untitled 1">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </TitledPane>
-                      <TitledPane animated="false" text="untitled 2">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </TitledPane>
-                      <TitledPane animated="false" text="untitled 3">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </TitledPane>
-                    </panes>
-                  </Accordion>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints minWidth="10.0" prefWidth="300.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
                      <children>
-                        <LineChart>
+                        <ListView fx:id="runtimeParameters" prefHeight="200.0" prefWidth="200.0" />
+                        <LineChart fx:id="realtimeChart" createSymbols="false" horizontalZeroLineVisible="false" title="Real-time data" GridPane.columnIndex="1">
                           <xAxis>
-                            <CategoryAxis side="BOTTOM" />
+                            <NumberAxis side="BOTTOM" />
                           </xAxis>
                           <yAxis>
                             <NumberAxis side="LEFT" />
                           </yAxis>
                         </LineChart>
                      </children>
-                  </VBox>
-              </items>
-            </SplitPane>
+                  </GridPane>
+                  <GridPane GridPane.halignment="RIGHT" GridPane.hgrow="NEVER">
+                    <columnConstraints>
+                      <ColumnConstraints minWidth="10.0" prefWidth="300.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <AnchorPane GridPane.hgrow="NEVER">
+                           <children>
+                              <Label fx:id="problemName" layoutX="120.0" layoutY="9.0" text="Select a problem" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                           <children>
+                              <Button fx:id="reportSaver" disable="true" mnemonicParsing="false" text="Save report" />
+                              <Button fx:id="startToggler" disable="true" mnemonicParsing="false" text="Start" />
+                              <Separator orientation="VERTICAL" prefHeight="200.0">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="5.0" left="3.0" top="5.0" />
+                                 </padding>
+                              </Separator>
+                              <Button fx:id="problemSelection" mnemonicParsing="false" onAction="#handleChooseProblem" text="Select a problem" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets right="15.0" />
+                           </GridPane.margin>
+                        </HBox>
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
          </content>
       </Tab>
   </tabs>
