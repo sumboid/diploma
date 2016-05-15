@@ -68,8 +68,8 @@
                         </AnchorPane>
                         <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                             <children>
-                                <Button fx:id="reportSaver" disable="true" mnemonicParsing="false" text="Save report" />
-                                <Button fx:id="startToggler" mnemonicParsing="false" onAction="#handleSnapshot" text="Start" />
+                                <Button fx:id="reportSaver" disable="true" onAction="#handleSaveReport" mnemonicParsing="false" text="Save report" />
+                                <Button fx:id="startButton" mnemonicParsing="false" onAction="#handleStart" text="Start" />
                                 <Separator orientation="VERTICAL" prefHeight="200.0">
                                     <opaqueInsets>
                                         <Insets />

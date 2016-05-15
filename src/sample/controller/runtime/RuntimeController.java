@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -26,6 +27,7 @@ import sample.model.algorithm.data.Parameters;
 import javafx.scene.layout.GridPane;
 import sample.model.algorithm.data.PheromonMatrix;
 import sample.model.problem.Problem;
+import sample.model.report.Report;
 import sample.model.utils.FileWorker;
 
 import javax.imageio.ImageIO;
@@ -38,11 +40,14 @@ public class RuntimeController {
     @FXML private LineChart realtimeChart;
     @FXML private GridPane exportedPane;
     @FXML private Pane problemMatrixPane;
+    @FXML private Button startButton;
+    @FXML private Button reportSaver;
 
     @FXML private ListView runtimeParameters;
 
     private Model model;
     private Problem problem;
+    private Report report;
 
     private XYChart.Series series;
 
@@ -56,6 +61,7 @@ public class RuntimeController {
             String path = file.getAbsolutePath();
             this.problem = (Problem) FileWorker.readObjectFromFile(path);
             Parameters params = this.problem.getParams();
+
 
 //            sample.model.algorithm.data.Parameters parameters = new sample.model.algorithm.data.Parameters();
 //
@@ -105,11 +111,29 @@ public class RuntimeController {
         }
     }
 
-    @FXML public void handleSnapshot(ActionEvent event) throws IOException {
+
+    public void endExecution(Report report) {
+        startButton.setDisable(false);
+        reportSaver.setDisable(false);
+    }
+
+    @FXML public void handleStart() {
 //        WritableImage snapShot = exportedPane.snapshot(new SnapshotParameters(), null);
 //        ImageIO.write(SwingFXUtils.fromFXImage(snapShot, null), "png", new File("test.png"));
         clearChart();
+        startButton.setDisable(true);
+        reportSaver.setDisable(true);
         model.start(problem);
+    }
+
+    @FXML public void handleSaveReport(ActionEvent event) {
+        final FileChooser fileChooser = new FileChooser();
+        final Window window = ((Node)event.getTarget()).getScene().getWindow();
+        File file = fileChooser.showSaveDialog(window);
+        if (file != null) {
+            String path = file.getAbsolutePath();
+            FileWorker.writeObjectToFile(report, path);
+        }
     }
 
 

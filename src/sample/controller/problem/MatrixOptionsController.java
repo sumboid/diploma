@@ -83,7 +83,7 @@ public class MatrixOptionsController {
                 return;
             }
 
-            final DistanzMatrix matrix = DistanzMatrix.generate(NODE_NUMBERS, 1, 300);
+            final DistanzMatrix matrix = DistanzMatrix.generate(NODE_NUMBERS, 10, 10);
             this.matrix = matrix;
             renderMatrix(matrix);
         }
