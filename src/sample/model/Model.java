@@ -27,6 +27,10 @@ public class Model {
                 PheromonMatrix phMatrix = PheromonMatrix.buildDMatrixFromFile(FILE_PHER_MATRIX);//создаем матрицу феромонов
                 DeltaPherMatrix deltaPherMatrix=new DeltaPherMatrix();//создаем матрицу измененения феромонов
                // dmatrix.distanzMatrixShow();
+                ArrayList<Double> grafik=new ArrayList<Double>();//для сейва инфы
+                ArrayList<Integer> bestRouteRun =new ArrayList<>();
+                int bestLength=0;                                   //конец сейва
+
 
                 Ants[] ant=new Ants[parameters.ANTS_NUMBER];
                 Double topLength[]=new Double[parameters.lifeСycle];
@@ -53,6 +57,7 @@ public class Model {
                                 deltaPherMatrix.deltaPherMatrixUpdate(cover);// откладывание изменения феромонов на пути
 
                             }
+
                             phMatrix.pheromonMatrixSteam(parameters.p);
                             phMatrix.pheromonMatrixUpdate(deltaPherMatrix.dataDeltaPher);
                             deltaPherMatrix.deltaPherMatrixNull();
@@ -70,12 +75,15 @@ public class Model {
                         }
                         Thread.sleep(1);
                         final double yoba = lifetime;
-                        Platform.runLater(() -> controller.setPoint(yoba,topLength[(int)yoba]));
+                        Platform.runLater(() -> controller.setPoint(yoba,topLength[(int)yoba]));//risyem
+                        grafik.add(topLength[(int)yoba]);   ///save
                         lifetime++;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
+                bestRouteRun=bestRoute;
+                bestLength=topLengthlocal;
                 if (topAnt != -2) {
                     System.out.println();
                     for(int i=0;i<dmatrix.n;i++){
