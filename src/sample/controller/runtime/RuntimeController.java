@@ -42,6 +42,7 @@ public class RuntimeController {
     @FXML private Pane problemMatrixPane;
     @FXML private Button startButton;
     @FXML private Button reportSaver;
+    @FXML private Button problemSelection;
 
     @FXML private ListView runtimeParameters;
 
@@ -115,6 +116,8 @@ public class RuntimeController {
     public void endExecution(Report report) {
         startButton.setDisable(false);
         reportSaver.setDisable(false);
+        problemSelection.setDisable(false);
+        this.report = report;
     }
 
     @FXML public void handleStart() {
@@ -123,6 +126,7 @@ public class RuntimeController {
         clearChart();
         startButton.setDisable(true);
         reportSaver.setDisable(true);
+        problemSelection.setDisable(true);
         model.start(problem);
     }
 

@@ -5,9 +5,10 @@ import sample.model.algorithm.data.Parameters;
 import sample.model.algorithm.data.PheromonMatrix;
 import sample.model.problem.Problem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Report {
+public class Report implements Serializable {
     Problem problem;
     int lifeCycle;              //время жизни(количество итераций)
     ArrayList<Double> grafik=new ArrayList<>();// лист с точками графика которые должны отрисовываться
