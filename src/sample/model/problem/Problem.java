@@ -1,6 +1,5 @@
 package sample.model.problem;
 
-import sample.model.algorithm.data.DeltaPherMatrix;
 import sample.model.algorithm.data.DistanzMatrix;
 import sample.model.algorithm.data.Parameters;
 import sample.model.algorithm.data.PheromonMatrix;

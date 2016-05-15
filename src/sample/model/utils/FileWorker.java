@@ -37,8 +37,47 @@ public class FileWorker {
         } catch(IOException ex){
             System.out.println(ex.getMessage());
         }
-
     }
 
+    public static void writeObjectToFile(Object o, String path) {
+        FileOutputStream fileOut = null;
+        try {
+            fileOut = new FileOutputStream(path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ObjectOutputStream out = null;
+        try {
+            out = new ObjectOutputStream(fileOut);
+            out.writeObject(o);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            out.close();
+            fileOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Object readObjectFromFile(String path) {
+        try {
+            FileInputStream fileIn = new FileInputStream(path);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            Object o = in.readObject();
+            in.close();
+            fileIn.close();
+            return o;
+        } catch(IOException i) {
+            i.printStackTrace();
+            return null;
+        } catch(ClassNotFoundException c) {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+            return null;
+        }
+    }
 }
 

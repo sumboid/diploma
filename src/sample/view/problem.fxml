@@ -81,8 +81,8 @@
             </SplitPane>
             <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                 <children>
-                    <Button fx:id="saveProblem" disable="true" mnemonicParsing="false" text="Save problem" />
-                    <Button fx:id="newProblem" mnemonicParsing="false" onAction="#createNewProblem" text="New problem" />
+                    <Button fx:id="saveProblem" disable="true" onAction="#handleSaveProblem" mnemonicParsing="false" text="Save problem" />
+                    <Button fx:id="newProblem" mnemonicParsing="false" onAction="#handleCreateNewProblem" text="New problem" />
                     <Button fx:id="loadProblem" mnemonicParsing="false" onAction="#handleLoadProblem" text="Load problem" />
                 </children>
                 <opaqueInsets>
