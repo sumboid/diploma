@@ -1,6 +1,7 @@
 package sample.model.algorithm.data;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class PheromonMatrix {
@@ -51,5 +52,37 @@ public class PheromonMatrix {
         for (int i=0;i<n*n;i++){
             dataPher[i]=dataPher[i]*(1-p);
         }
+    }
+    public static PheromonMatrix generate(int nv){
+        double [] data=new double[nv*nv];
+        double [][]dataTemp=new double[nv][nv];
+        Random random=new Random();
+
+        for(int i=0;i<nv;i++){
+            for(int j=i;j<nv;j++){
+                if (i==j) {
+                    dataTemp[i][j] = 0;
+                } else{
+                    dataTemp[i][j]=1;
+                    dataTemp[j][i]=dataTemp[i][j];
+                }
+            }
+        }
+        for(int i=0;i<nv;i++){
+            for(int j=0;j<nv;j++){
+                data[i*nv+j]=dataTemp[i][j];
+            }
+        }
+
+
+
+
+        for(int i=0;i<nv*nv;i++){
+            if (i%nv==0){System.out.println();}
+            System.out.print(data[i]+" ");
+
+        }
+        System.out.println();
+        return new PheromonMatrix(nv,data);
     }
 }
