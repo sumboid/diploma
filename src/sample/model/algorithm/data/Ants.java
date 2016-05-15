@@ -62,11 +62,11 @@ public class Ants extends Parametry {
         }
 
         ///список всех доступных маршрутов////////////////
-        System.out.println();
-        System.out.println(antNumber+" cp -"+currentPosition);
+       // System.out.println();
+     //   System.out.println(antNumber+" cp -"+currentPosition);
         for(int i=0;i<n;i++){
             if (((pSumNom[i]!=0)||(!used[i]))&&data[(currentPosition)*n+i]>0) {
-                System.out.println(i+": "+used[i]);
+             //   System.out.println(i+": "+used[i]);
 
             }
         }
@@ -76,11 +76,11 @@ public class Ants extends Parametry {
         double ran = random.nextDouble();
         double kf = 0;
         int nextV = -1;
-        System.out.println(ran + " random");
+       // System.out.println(ran + " random");
 
         for(int i=0;i<n;++i){
             if (pSumNom[i]!=0) {
-                System.out.println(currentPosition + "-" + i + "- " + pSumNom[i]);
+                //System.out.println(currentPosition + "-" + i + "- " + pSumNom[i]);
             }
             if ((pSumNom[i]!=0)&&((pSumNom[i]+kf)>=ran)&&(ran>kf)){
                 nextV=i;
@@ -91,9 +91,9 @@ public class Ants extends Parametry {
             kf+=pSumNom[i];
         }
 
-        System.out.println("nextV - "+nextV);
-        System.out.println("info");
-        System.out.println("leng:"+leng+"; currentPosition:"+currentPosition+"; used:"+used[currentPosition]);
+       // System.out.println("nextV - "+nextV);
+        //System.out.println("info");
+       // System.out.println("leng:"+leng+"; currentPosition:"+currentPosition+"; used:"+used[currentPosition]);
         int oldPos = currentPosition;
         if (nextV>=0) {
             leng += data[(currentPosition) * n + nextV];
@@ -108,14 +108,14 @@ public class Ants extends Parametry {
             return null;
         }
 
-        System.out.println(antNumber+" info");
-        System.out.println("leng:"+leng+"; currentPosition:"+currentPosition+"; used:"+used[oldPos]);
+        //System.out.println(antNumber+" info");
+       // System.out.println("leng:"+leng+"; currentPosition:"+currentPosition+"; used:"+used[oldPos]);
         for (int i=0;i< route.size();i++){
            // System.out.print(route.get(i)+"-");
         }
-       System.out.println();
-        System.out.println("CLOSE_INFO");
-        System.out.println();
+      // System.out.println();
+      //  System.out.println("CLOSE_INFO");
+       // System.out.println();
         if (route.size()==(n-1)){
             used[startingPosition]=true;
         }
@@ -125,11 +125,11 @@ public class Ants extends Parametry {
 
     public void showRoute(){
         for (int i=0;i< route.size();i++){
-            System.out.print(route.get(i)+"-");
+          //  System.out.print(route.get(i)+"-");
         }
-        System.out.println();
-        System.out.println(route.get(0)+" "+currentPosition);
-        System.out.println(leng);
+       // System.out.println();
+       // System.out.println(route.get(0)+" "+currentPosition);
+       // System.out.println(leng);
 
 
     }

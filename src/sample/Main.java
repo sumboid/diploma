@@ -14,6 +14,10 @@ public class Main extends Application {
     private Model model = new Model();
     @Override
     public void start(Stage primaryStage) throws Exception{
+        DistanzMatrix dm=DistanzMatrix.generate(5,10,20);
+        System.out.println();
+        PheromonMatrix ph=PheromonMatrix.generate(5);
+
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("sample.fxml"));
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());

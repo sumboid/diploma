@@ -1,6 +1,8 @@
 package sample.model.algorithm.data;
 import java.io.*;
+import java.util.Random;
 import java.util.Scanner;
+import java.lang.Math;
 
 public class DistanzMatrix {
     public int n;
@@ -83,5 +85,37 @@ public class DistanzMatrix {
             throw new RuntimeException(ex);
         }
         return new DistanzMatrix(n,k,data);
+    }
+    public static DistanzMatrix generate(int nv,int minRust,int maxRust){
+        double [] data=new double[nv*nv];
+        double [][]dataTemp=new double[nv][nv];
+        Random random=new Random();
+
+        for(int i=0;i<nv;i++){
+            for(int j=i;j<nv;j++){
+                if (i==j) {
+                    dataTemp[i][j] = 0;
+                } else{
+                    dataTemp[i][j]=(double)Math.round((minRust+(maxRust-minRust)*random.nextDouble())*100)/100;
+                    dataTemp[j][i]=dataTemp[i][j];
+                }
+            }
+        }
+        for(int i=0;i<nv;i++){
+            for(int j=0;j<nv;j++){
+                data[i*nv+j]=dataTemp[i][j];
+            }
+        }
+
+
+
+
+        for(int i=0;i<nv*nv;i++){
+            if (i%nv==0){System.out.println();}
+            System.out.print(data[i]+" ");
+
+        }
+        System.out.println();
+        return new DistanzMatrix(nv,nv,data);
     }
 }
