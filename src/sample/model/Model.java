@@ -5,6 +5,8 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import sample.controller.runtime.RuntimeController;
 import sample.model.algorithm.data.*;
+import sample.model.problem.Problem;
+import sample.model.report.Report;
 
 import java.util.ArrayList;
 
@@ -16,15 +18,16 @@ public class Model {
         controller = c;
     }
 
-    public void start(int lifeCycle, Parameters parameters, String fileDmatrix, String filePherMatrix) {
+    public void start(Problem problem) {
+
         task = new Task<Integer>() {
             @Override
             public Integer call() {
-                String FILE_DMATRIX=fileDmatrix;
-                String FILE_PHER_MATRIX=filePherMatrix;
+               // String FILE_DMATRIX=fileDmatrix;
+               // String FILE_PHER_MATRIX=filePherMatrix;
                 Cover cover=new Cover();//объект для обертки в методе Ants.move
-                DistanzMatrix dmatrix =DistanzMatrix.buildDMatrixFromFile(FILE_DMATRIX);//создаем матрицу смехности
-                PheromonMatrix phMatrix = PheromonMatrix.buildDMatrixFromFile(FILE_PHER_MATRIX);//создаем матрицу феромонов
+              //  DistanzMatrix dmatrix =DistanzMatrix.buildDMatrixFromFile(FILE_DMATRIX);//создаем матрицу смехности
+               // PheromonMatrix phMatrix = PheromonMatrix.buildDMatrixFromFile(FILE_PHER_MATRIX);//создаем матрицу феромонов
                 DeltaPherMatrix deltaPherMatrix=new DeltaPherMatrix();//создаем матрицу измененения феромонов
                // dmatrix.distanzMatrixShow();
                 ArrayList<Double> grafik=new ArrayList<Double>();//для сейва инфы
@@ -32,37 +35,38 @@ public class Model {
                 int bestLength=0;                                   //конец сейва
 
 
-                Ants[] ant=new Ants[parameters.ANTS_NUMBER];
-                Double topLength[]=new Double[parameters.lifeСycle];
-                for(int j = 0; j< parameters.lifeСycle; j++){
+                Ants[] ant=new Ants[problem.getParams().ANTS_NUMBER];
+                Double topLength[]=new Double[ problem.getParams().lifeСycle];
+                for(int j = 0; j< problem.getParams().lifeСycle; j++){
                     topLength[j]= 0.0;
                 }
-                for(int j = 0; j< parameters.ANTS_NUMBER; j++){
-                    ant[j]= new Ants(dmatrix.n);
+                for(int j = 0; j< problem.getParams().ANTS_NUMBER; j++){
+                    ant[j]= new Ants(problem.getDMatrix().n);
                 }
                 int topLengthlocal=1000,topAnt=-2;
                 ArrayList<Integer> bestRoute =new ArrayList<>();
                 int lifetime=0;
 
 
-                while(lifetime<lifeCycle) {             //основное тело цикла
-                    for(int i = 0; i< parameters.ANTS_NUMBER; i++){       //обнуление всех штук у всех муравьев
-                        ant[i].antNull(dmatrix.n);
+                while(lifetime<problem.getParams().lifeСycle) {             //основное тело цикла
+                    for(int i = 0; i< problem.getParams().ANTS_NUMBER; i++){       //обнуление всех штук у всех муравьев
+                        ant[i].antNull(problem.getDMatrix().n);
                     }
                     try {
 
-                        for (int t = 0; t <= dmatrix.n; t++) {
-                            for (int k = 0; k < parameters.ANTS_NUMBER; k++) {
-                                cover = ant[k].move(dmatrix.n, dmatrix.data, phMatrix.dataPher, parameters.endWhile, k, parameters);
+                        for (int t = 0; t <= problem.getDMatrix().n; t++) {
+                            for (int k = 0; k < problem.getParams().ANTS_NUMBER; k++) {
+                                cover = ant[k].move(problem.getDMatrix().n, problem.getDMatrix().data, problem.getPhMatrix().dataPher
+                                        , problem.getParams().endWhile, k, problem.getParams());
                                 deltaPherMatrix.deltaPherMatrixUpdate(cover);// откладывание изменения феромонов на пути
 
                             }
 
-                            phMatrix.pheromonMatrixSteam(parameters.p);
-                            phMatrix.pheromonMatrixUpdate(deltaPherMatrix.dataDeltaPher);
+                            problem.getPhMatrix().pheromonMatrixSteam(problem.getParams().p);
+                            problem.getPhMatrix().pheromonMatrixUpdate(deltaPherMatrix.dataDeltaPher);
                             deltaPherMatrix.deltaPherMatrixNull();
                         }
-                        for (int k = 0; k < parameters.ANTS_NUMBER; k++) {
+                        for (int k = 0; k < problem.getParams().ANTS_NUMBER; k++) {
                             if ((topLengthlocal > ant[k].leng) && (ant[k].currentPosition == ant[k].startingPosition)) {
                                 topLengthlocal = ant[k].leng;
                                 topAnt = k;
@@ -86,7 +90,7 @@ public class Model {
                 bestLength=topLengthlocal;
                 if (topAnt != -2) {
                     System.out.println();
-                    for(int i=0;i<dmatrix.n;i++){
+                    for(int i=0;i<problem.getDMatrix().n;i++){
                         System.out.print(bestRoute.get(i) + " ");
                     }
                     System.out.println();
@@ -95,7 +99,7 @@ public class Model {
                     System.out.println("Route not detected");
                 }
 
-
+                Report report= new Report(problem,bestRouteRun,bestLength,grafik);
                 return 10;
             }
         };

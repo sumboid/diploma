@@ -11,6 +11,7 @@ import sample.controller.MainController;
 import sample.model.Model;
 import sample.model.algorithm.data.*;
 import javafx.scene.input.KeyEvent;
+import sample.model.problem.Problem;
 
 import java.awt.event.InputEvent;
 
@@ -32,7 +33,11 @@ public class Main extends Application {
 
         model.setController(controller.getRuntimeController());
         sample.model.algorithm.data.Parameters parameters = new sample.model.algorithm.data.Parameters();
-        model.start(500, parameters, "DistanzMatrix.m","PhMatrix.m");
+
+        PheromonMatrix phMatr=PheromonMatrix.buildDMatrixFromFile("PhMatrix.m");
+        DistanzMatrix dMatr=DistanzMatrix.buildDMatrixFromFile("DistanzMatrix.m");
+        Problem problem=new Problem(phMatr,dMatr,parameters);
+        model.start(problem);
     }
 
 
