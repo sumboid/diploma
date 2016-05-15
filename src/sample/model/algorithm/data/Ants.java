@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Ants extends Parameters {
     public ArrayList<Integer> route =new ArrayList<>();; //маршрут пройденный муравьем
-    public int leng =0; //длинна маршрута
+    public double leng =0; //длинна маршрута
     public boolean used[];//массив для хранения инфы о пройденных вершинах
     //true - не пройдена, false -пройдена
     public int startingPosition =0;

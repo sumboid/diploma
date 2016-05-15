@@ -12,9 +12,9 @@ public class Report {
     int lifeCycle;              //время жизни(количество итераций)
     ArrayList<Double> grafik=new ArrayList<>();// лист с точками графика которые должны отрисовываться
     ArrayList<Integer> bestRouteRun =new ArrayList<>();// лучший маршрут
-    int bestLength;
+    double bestLength;
 
-    public Report(Problem problem,ArrayList<Integer> bestRouteRun,int bestLength,ArrayList<Double> grafik) {
+    public Report(Problem problem,ArrayList<Integer> bestRouteRun,double bestLength,ArrayList<Double> grafik) {
         this.problem = problem;
         this.grafik= grafik;
         this.bestRouteRun=bestRouteRun;
@@ -52,7 +52,7 @@ public class Report {
         this.bestRouteRun = bestRouteRun;
     }
 
-    public int getBestLength() {
+    public double getBestLength() {
         return bestLength;
     }
 
