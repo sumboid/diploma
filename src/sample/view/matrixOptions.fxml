@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<GridPane layoutX="226.0" layoutY="178.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.problem.MatrixOptionsController">
+<GridPane layoutX="226.0" layoutY="178.0"  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.problem.MatrixOptionsController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
