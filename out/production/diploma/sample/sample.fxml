@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+  <tabs>
+      <Tab text="Untitled Tab" />
+    <Tab text="Untitled Tab 1">
+         <content>
+            <AnchorPane layoutX="200.0">
+               <children>
+                  <SplitPane dividerPositions="0.32" prefHeight="567.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="565.0" prefWidth="174.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <SplitPane dividerPositions="0.5162907268170426" prefHeight="278.0" prefWidth="401.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <items>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                   <children>
+                                                      <GridPane layoutX="6.0" layoutY="59.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label text="Размер колонии" />
+                                                            <Label text="Вес расстояния от города до города" GridPane.rowIndex="3" />
+                                                            <Label text="Коэффициент испарения феромона" GridPane.rowIndex="1" />
+                                                            <Label text="Вес следа феромона" GridPane.rowIndex="2" />
+                                                            <Label text="Q" GridPane.rowIndex="4" />
+                                                            <Label text="Конечная вершина" GridPane.rowIndex="5" />
+                                                            <Label text="Время жизни колонии" GridPane.rowIndex="6" />
+                                                            <TextField fx:id="TEXTANTSNUMBER" text="2" GridPane.columnIndex="1" />
+                                                            <TextField fx:id="TEXT_P" text="0.05" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                            <TextField fx:id="TEXT_AL" onAction="#textAСhange" text="0.5" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                            <TextField fx:id="TEXT_B" text="0.5" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                            <TextField fx:id="TEXT_Q" text="1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                            <TextField fx:id="TEXT_ENDWHILE" text="11" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                            <TextField fx:id="TEXT_lifeCycle" prefHeight="25.0" prefWidth="93.0" text="20" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                         </children>
+                                                      </GridPane>
+                                                      <Button fx:id="expModulDiv2ButtonOk" layoutX="56.0" layoutY="237.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#expModulDiv2ButtonOkOnAction" prefHeight="25.0" prefWidth="55.0" text="Ok" AnchorPane.rightAnchor="85.0" />
+                                                      <Button layoutX="129.0" layoutY="237.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Reset" AnchorPane.rightAnchor="10.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                   <children>
+                                                      <Label fx:id="test" layoutX="98.0" layoutY="14.0" text="Label" />
+                                                   </children></AnchorPane>
+                                            </items>
+                                          </SplitPane>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <SplitPane dividerPositions="0.3082706766917293" prefHeight="277.0" prefWidth="401.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <items>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="275.0" prefWidth="222.0" />
+                                              <AnchorPane>
+                                                   <children>
+                                                       <LineChart fx:id="realtimeChart" alternativeColumnFillVisible="true" createSymbols="false" horizontalGridLinesVisible="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" title="Real-time chart" verticalGridLinesVisible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                           <xAxis>
+                                                               <NumberAxis side="BOTTOM" />
+                                                           </xAxis>
+                                                           <yAxis>
+                                                               <NumberAxis side="LEFT" />
+                                                           </yAxis>
+                                                       </LineChart>
+                                                   </children>
+                                                </AnchorPane>
+                                            </items>
+                                          </SplitPane>
+                                       </children></AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+         </content>
+    </Tab>
+    <Tab text="Untitled Tab 2">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <CheckBox fx:id="ggwcg" mnemonicParsing="false" text="CheckBox" />
+                  <ComboBox prefWidth="150.0" />
+                  <Button mnemonicParsing="false" onAction="#derg" text="Button" />
+                  <Label fx:id="actiontarget" text="Label" />
+                  <ProgressBar prefWidth="200.0" progress="0.0" />
+                  <TextField />
+                  <TextField />
+                  <TextField />
+               </children>
+            </VBox>
+         </content>
+    </Tab>
+      <Tab text="Config">
+         <content>
+            <HTMLEditor htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefHeight="200.0" prefWidth="506.0" />
+         </content>
+      </Tab>
+      <Tab text="Runtime">
+         <content>
+            <SplitPane dividerPositions="0.2" prefHeight="160.0" prefWidth="200.0">
+              <items>
+                  <Accordion>
+                    <panes>
+                      <TitledPane animated="false" text="untitled 1">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </TitledPane>
+                      <TitledPane animated="false" text="untitled 2">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </TitledPane>
+                      <TitledPane animated="false" text="untitled 3">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </TitledPane>
+                    </panes>
+                  </Accordion>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <LineChart>
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </children>
+                  </VBox>
+              </items>
+            </SplitPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>
