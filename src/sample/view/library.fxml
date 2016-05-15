@@ -2,4 +2,5 @@
 
 <?import javafx.scene.control.*?>
 
-<Tab text="Library" />
+<?import javafx.scene.layout.Pane?>
+<Pane  />

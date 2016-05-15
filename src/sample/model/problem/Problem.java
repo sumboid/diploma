@@ -1,30 +1,39 @@
 package sample.model.problem;
 
 import sample.model.algorithm.data.DeltaPherMatrix;
+import sample.model.algorithm.data.DistanzMatrix;
 import sample.model.algorithm.data.Parameters;
+import sample.model.algorithm.data.PheromonMatrix;
 
 public class Problem implements java.io.Serializable {
-    private static DeltaPherMatrix matrix;
-    private static Parameters params;
+    private  PheromonMatrix phMatrix;
+    private  DistanzMatrix dMatrix;
+    private  Parameters params;
 
-    public Problem(DeltaPherMatrix matrix, Parameters params) {
-        this.matrix = matrix;
+    public Problem(PheromonMatrix phMatrix, DistanzMatrix dMatrix, Parameters params) {
+        this.phMatrix = phMatrix;
         this.params = params;
+        this.dMatrix=dMatrix;
     }
 
-    public static DeltaPherMatrix getMatrix() {
-        return matrix;
+    public  DistanzMatrix getDMatrix(){return dMatrix;}
+
+    public  void setDMatrix(DistanzMatrix dMatrix){this.dMatrix=dMatrix;}
+
+
+    public  PheromonMatrix getPhMatrix() {
+        return phMatrix;
     }
 
-    public static void setMatrix(DeltaPherMatrix matrix) {
-        Problem.matrix = matrix;
+    public  void setPhMatrix(PheromonMatrix phMatrix) {
+        this.phMatrix = phMatrix;
     }
 
-    public static Parameters getParams() {
+    public  Parameters getParams() {
         return params;
     }
 
-    public static void setParams(Parameters params) {
-        Problem.params = params;
+    public  void setParams(Parameters params) {
+        this.params = params;
     }
 }
