@@ -1,14 +1,17 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Popup;
+import javafx.stage.Window;
 import sample.model.algorithm.data.Parametry;
+
+import java.io.File;
 
 public class Controller {
     @FXML private Label actiontarget;
@@ -23,6 +26,9 @@ public class Controller {
     @FXML private TextField TEXT_lifeCycle;
     @FXML private LineChart realtimeChart;
 
+    @FXML private Button problemSelection;
+    final FileChooser fileChooser = new FileChooser();
+
     private XYChart.Series series;
 
 
@@ -31,6 +37,15 @@ public class Controller {
         actiontarget.setText("ТЫ ОХУЕЛ, СТЕПАН?");
         derg2();
     }
+
+    @FXML public void handleChooseProblem(ActionEvent event) {
+        final Window window = ((Node)event.getTarget()).getScene().getWindow();
+        File file = fileChooser.showOpenDialog(window);
+        if (file != null) {
+            System.out.println(file.getAbsolutePath());
+        }
+    }
+
     @FXML public void derg2(){
         ggwcg.setSelected(true);
     }
