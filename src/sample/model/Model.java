@@ -101,7 +101,8 @@ public class Model {
                     System.out.println("Route not detected");
                 }
 
-                Report report= new Report(problem,bestRouteRun,bestLength,grafik);
+                Report report = new Report(problem,bestRouteRun,bestLength,grafik);
+                controller.endExecution(report);
                 return 10;
             }
         };

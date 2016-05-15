@@ -7,6 +7,7 @@ import sample.controller.problem.ProblemController;
 import sample.controller.report.ReportController;
 import sample.controller.runtime.RuntimeController;
 import sample.model.Model;
+import sample.model.report.Report;
 
 public class MainController {
     @FXML private Tab runtime;
@@ -30,6 +31,9 @@ public class MainController {
         System.out.println(runtimeController);
     }
 
+    public void endExecution(Report report) {
+        runtimeController.endExecution(report);
+    }
     public void setModel(Model model) {
         runtimeController.setModel(model);
     }

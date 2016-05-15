@@ -33,7 +33,6 @@ public class Main extends Application {
 
         model.setController(controller.getRuntimeController());
         controller.setModel(model);
-
     }
 
 
