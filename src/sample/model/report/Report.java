@@ -14,9 +14,9 @@ public class Report {
     ArrayList<Integer> bestRouteRun =new ArrayList<>();// лучший маршрут
     int bestLength;
 
-    public Report(Problem problem,int lifeCycle,ArrayList<Integer> bestRouteRun,int bestLength) {
+    public Report(Problem problem,ArrayList<Integer> bestRouteRun,int bestLength,ArrayList<Double> grafik) {
         this.problem = problem;
-        this.lifeCycle = lifeCycle;
+        this.grafik= grafik;
         this.bestRouteRun=bestRouteRun;
         this.bestLength=bestLength;
     }
