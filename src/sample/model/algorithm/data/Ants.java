@@ -3,7 +3,7 @@ package sample.model.algorithm.data;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Ants extends Parametry {
+public class Ants extends Parameters {
     public ArrayList<Integer> route =new ArrayList<>();; //маршрут пройденный муравьем
     public int leng =0; //длинна маршрута
     public boolean used[];//массив для хранения инфы о пройденных вершинах
@@ -30,7 +30,7 @@ public class Ants extends Parametry {
         route.add(currentPosition);
         permissionToGo=true;
     }
-    public Cover move(int n, double []data, double []dataPher, int endWhile, int antNumber,Parametry parametry){ //движение муравья
+    public Cover move(int n, double []data, double []dataPher, int endWhile, int antNumber,Parameters parameters){ //движение муравья
         double pSumDom = 0;
         double[] pSumNom=new double[n];
         double deltaPherMatrix=0;
@@ -45,8 +45,8 @@ public class Ants extends Parametry {
 
         for (int j=0;j<n;++j){
             if ((data[(currentPosition)*n+j]>0)&&(used[j])){
-                pSumDom+=Math.pow((1/(data[(currentPosition)*n+j])),parametry.b)
-                        *Math.pow(dataPher[(currentPosition)*n+j],parametry.al);
+                pSumDom+=Math.pow((1/(data[(currentPosition)*n+j])), parameters.b)
+                        *Math.pow(dataPher[(currentPosition)*n+j], parameters.al);
             }
         }
 
@@ -55,8 +55,8 @@ public class Ants extends Parametry {
         }
         for(int i=0;i<n;++i){
             if ((data[(currentPosition)*n+i]>0)&&(used[i])){
-                pSumNom[i]=(Math.pow(dataPher[(currentPosition)*n+i],parametry.al)*
-                        Math.pow((1/data[(currentPosition)*n+i]),parametry.b))/pSumDom;
+                pSumNom[i]=(Math.pow(dataPher[(currentPosition)*n+i], parameters.al)*
+                        Math.pow((1/data[(currentPosition)*n+i]), parameters.b))/pSumDom;
 
             }
         }

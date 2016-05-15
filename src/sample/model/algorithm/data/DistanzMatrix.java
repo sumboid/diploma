@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.lang.Math;
 
-public class DistanzMatrix {
+public class DistanzMatrix implements java.io.Serializable {
     public int n;
     public int k;
     public double[]data;

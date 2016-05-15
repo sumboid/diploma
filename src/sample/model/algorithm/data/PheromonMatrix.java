@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
-public class PheromonMatrix {
+public class PheromonMatrix implements java.io.Serializable {
     public int n;
     public int k;
     public double []dataPher;

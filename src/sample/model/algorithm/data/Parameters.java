@@ -1,5 +1,5 @@
 package sample.model.algorithm.data;
-public class Parametry {
+public class Parameters implements java.io.Serializable {
     public double al=0.5;
     public  double b = 1-al;
     public  double q=1;

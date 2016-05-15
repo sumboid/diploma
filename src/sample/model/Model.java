@@ -3,20 +3,20 @@ package sample.model;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import sample.*;
+import sample.controller.runtime.RuntimeController;
 import sample.model.algorithm.data.*;
 
 import java.util.ArrayList;
 
 public class Model {
-    private Controller controller;
+    private RuntimeController controller;
     private Task task;
 
-    public void setController(Controller c) {
+    public void setController(RuntimeController c) {
         controller = c;
     }
 
-    public void start(int lifeCycle,Parametry parametry,String fileDmatrix,String filePherMatrix) {
+    public void start(int lifeCycle, Parameters parameters, String fileDmatrix, String filePherMatrix) {
         task = new Task<Integer>() {
             @Override
             public Integer call() {
@@ -28,12 +28,12 @@ public class Model {
                 DeltaPherMatrix deltaPherMatrix=new DeltaPherMatrix();//создаем матрицу измененения феромонов
                // dmatrix.distanzMatrixShow();
 
-                Ants[] ant=new Ants[parametry.ANTS_NUMBER];
-                Double topLength[]=new Double[parametry.lifeСycle];
-                for(int j=0;j<parametry.lifeСycle;j++){
+                Ants[] ant=new Ants[parameters.ANTS_NUMBER];
+                Double topLength[]=new Double[parameters.lifeСycle];
+                for(int j = 0; j< parameters.lifeСycle; j++){
                     topLength[j]= 0.0;
                 }
-                for(int j=0;j<parametry.ANTS_NUMBER;j++){
+                for(int j = 0; j< parameters.ANTS_NUMBER; j++){
                     ant[j]= new Ants(dmatrix.n);
                 }
                 int topLengthlocal=1000,topAnt=-2;
@@ -42,22 +42,22 @@ public class Model {
 
 
                 while(lifetime<lifeCycle) {             //основное тело цикла
-                    for(int i=0;i<parametry.ANTS_NUMBER;i++){       //обнуление всех штук у всех муравьев
+                    for(int i = 0; i< parameters.ANTS_NUMBER; i++){       //обнуление всех штук у всех муравьев
                         ant[i].antNull(dmatrix.n);
                     }
                     try {
 
                         for (int t = 0; t <= dmatrix.n; t++) {
-                            for (int k = 0; k < parametry.ANTS_NUMBER; k++) {
-                                cover = ant[k].move(dmatrix.n, dmatrix.data, phMatrix.dataPher, parametry.endWhile, k,parametry);
+                            for (int k = 0; k < parameters.ANTS_NUMBER; k++) {
+                                cover = ant[k].move(dmatrix.n, dmatrix.data, phMatrix.dataPher, parameters.endWhile, k, parameters);
                                 deltaPherMatrix.deltaPherMatrixUpdate(cover);// откладывание изменения феромонов на пути
 
                             }
-                            phMatrix.pheromonMatrixSteam(parametry.p);
+                            phMatrix.pheromonMatrixSteam(parameters.p);
                             phMatrix.pheromonMatrixUpdate(deltaPherMatrix.dataDeltaPher);
                             deltaPherMatrix.deltaPherMatrixNull();
                         }
-                        for (int k = 0; k < parametry.ANTS_NUMBER; k++) {
+                        for (int k = 0; k < parameters.ANTS_NUMBER; k++) {
                             if ((topLengthlocal > ant[k].leng) && (ant[k].currentPosition == ant[k].startingPosition)) {
                                 topLengthlocal = ant[k].leng;
                                 topAnt = k;

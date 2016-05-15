@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainController">
+  <tabs>
+      <fx:include fx:id="library" source="library.fxml" />
+      <fx:include fx:id="problem" source="problem.fxml" />
+      <fx:include fx:id="runtime" source="runtime.fxml" />
+  </tabs>
+</TabPane>

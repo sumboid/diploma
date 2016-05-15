@@ -3,7 +3,7 @@ package sample.model.algorithm.data;
 import java.io.*;
 import java.util.Scanner;
 
-public class DeltaPherMatrix {
+public class DeltaPherMatrix implements java.io.Serializable {
     public int n;
     public double[] dataDeltaPher;
     public DeltaPherMatrix(){
