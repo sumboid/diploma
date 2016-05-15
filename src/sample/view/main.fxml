@@ -6,5 +6,6 @@
       <fx:include fx:id="library" source="library.fxml" />
       <fx:include fx:id="problem" source="problem.fxml" />
       <fx:include fx:id="runtime" source="runtime.fxml" />
+      <fx:include fx:id="report" source="report.fxml" />
   </tabs>
 </TabPane>
