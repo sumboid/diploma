@@ -78,12 +78,12 @@ public class MatrixOptionsController {
             int NODE_NUMBERS = 0;
             try {
                 NODE_NUMBERS = Integer.parseInt(result.get());
-                if (NODE_NUMBERS > 200) return;
+                if (NODE_NUMBERS > 1000) return;
             } catch(java.lang.NumberFormatException e) {
                 return;
             }
 
-            final DistanzMatrix matrix = DistanzMatrix.generate(NODE_NUMBERS, 1, 2);
+            final DistanzMatrix matrix = DistanzMatrix.generate(NODE_NUMBERS, 1, 30);
             this.matrix = matrix;
             renderMatrix(matrix);
         }

@@ -55,6 +55,8 @@ public class RuntimeController {
         if (file != null) {
             String path = file.getAbsolutePath();
             this.problem = (Problem) FileWorker.readObjectFromFile(path);
+            Parameters params = this.problem.getParams();
+
 //            sample.model.algorithm.data.Parameters parameters = new sample.model.algorithm.data.Parameters();
 //
 //            PheromonMatrix phMatr=PheromonMatrix.buildDMatrixFromFile("PhMatrix.m");
@@ -106,13 +108,13 @@ public class RuntimeController {
     @FXML public void handleSnapshot(ActionEvent event) throws IOException {
 //        WritableImage snapShot = exportedPane.snapshot(new SnapshotParameters(), null);
 //        ImageIO.write(SwingFXUtils.fromFXImage(snapShot, null), "png", new File("test.png"));
+        clearChart();
         model.start(problem);
     }
 
 
     public void clearChart() {
         series.getData().clear();
-
     }
 
     public void setPoint(Double x, Double y) {
