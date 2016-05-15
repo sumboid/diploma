@@ -32,7 +32,7 @@ public class Model {
                // dmatrix.distanzMatrixShow();
                 ArrayList<Double> grafik=new ArrayList<Double>();//для сейва инфы
                 ArrayList<Integer> bestRouteRun =new ArrayList<>();
-                int bestLength;                                   //конец сейва
+                Double bestLength;                                   //конец сейва
 
 
                 Ants[] ant=new Ants[problem.getParams().ANTS_NUMBER];
@@ -43,7 +43,8 @@ public class Model {
                 for(int j = 0; j< problem.getParams().ANTS_NUMBER; j++){
                     ant[j]= new Ants(problem.getDMatrix().n);
                 }
-                int topLengthlocal=-2,topAnt=-2;
+                Double topLengthlocal=Double.POSITIVE_INFINITY;
+                int topAnt=-2;
                 ArrayList<Integer> bestRoute =new ArrayList<>();
                 int lifetime=0;
 
@@ -66,7 +67,7 @@ public class Model {
                             problem.getPhMatrix().pheromonMatrixUpdate(deltaPherMatrix.dataDeltaPher);
                             deltaPherMatrix.deltaPherMatrixNull();
                         }
-                        topLengthlocal=ant[0].leng;
+                        //topLengthlocal=ant[0].leng;
                         for (int k = 0; k < problem.getParams().ANTS_NUMBER; k++) {
                             if ((topLengthlocal > ant[k].leng) && (ant[k].currentPosition == ant[k].startingPosition)) {
                                 topLengthlocal = ant[k].leng;
