@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.JavaFXBuilderFactory;
 import sample.model.Model;
+import sample.model.algorithm.data.Parametry;
+import sample.model.algorithm.data.*;
 
 public class Main extends Application {
     private Model model = new Model();
@@ -25,7 +27,8 @@ public class Main extends Application {
 
 
         model.setController(controller);
-        model.start();
+        Parametry parametry= new Parametry();
+        model.start(500, parametry, "DistanzMatrix.m","PhMatrix.m");
     }
 
 

@@ -30,7 +30,7 @@ public class Ants extends Parametry {
         route.add(currentPosition);
         permissionToGo=true;
     }
-    public Cover move(int n, double []data, double []dataPher, int endWhile, int antNumber){ //движение муравья
+    public Cover move(int n, double []data, double []dataPher, int endWhile, int antNumber,Parametry parametry){ //движение муравья
         double pSumDom = 0;
         double[] pSumNom=new double[n];
         double deltaPherMatrix=0;
@@ -45,8 +45,8 @@ public class Ants extends Parametry {
 
         for (int j=0;j<n;++j){
             if ((data[(currentPosition)*n+j]>0)&&(used[j])){
-                pSumDom+=Math.pow((1/(data[(currentPosition)*n+j])),Parametry.b)
-                        *Math.pow(dataPher[(currentPosition)*n+j],Parametry.al);
+                pSumDom+=Math.pow((1/(data[(currentPosition)*n+j])),parametry.b)
+                        *Math.pow(dataPher[(currentPosition)*n+j],parametry.al);
             }
         }
 
@@ -55,8 +55,8 @@ public class Ants extends Parametry {
         }
         for(int i=0;i<n;++i){
             if ((data[(currentPosition)*n+i]>0)&&(used[i])){
-                pSumNom[i]=(Math.pow(dataPher[(currentPosition)*n+i],Parametry.al)*
-                        Math.pow((1/data[(currentPosition)*n+i]),Parametry.b))/pSumDom;
+                pSumNom[i]=(Math.pow(dataPher[(currentPosition)*n+i],parametry.al)*
+                        Math.pow((1/data[(currentPosition)*n+i]),parametry.b))/pSumDom;
 
             }
         }
