@@ -32,12 +32,8 @@ public class Main extends Application {
 
 
         model.setController(controller.getRuntimeController());
-        sample.model.algorithm.data.Parameters parameters = new sample.model.algorithm.data.Parameters();
+        controller.setModel(model);
 
-        PheromonMatrix phMatr=PheromonMatrix.buildDMatrixFromFile("PhMatrix.m");
-        DistanzMatrix dMatr=DistanzMatrix.buildDMatrixFromFile("DistanzMatrix.m");
-        Problem problem=new Problem(phMatr,dMatr,parameters);
-        model.start(problem);
     }
 
 
