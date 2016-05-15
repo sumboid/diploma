@@ -6,15 +6,16 @@ import java.util.Scanner;
 public class DeltaPherMatrix implements java.io.Serializable {
     public int n;
     public double[] dataDeltaPher;
-    public DeltaPherMatrix(){
-        String FILE_DMATRIX="DistanzMatrix.m";
+    public DeltaPherMatrix(int nv){
+        n=nv;
+       /* String FILE_DMATRIX="DistanzMatrix.m";
         try{
             Scanner scannerData = new Scanner(new File(FILE_DMATRIX));
             n=scannerData.nextInt();
 
         }catch(IOException ex){
             throw new RuntimeException(ex);
-        }
+        }*/
         dataDeltaPher = new double [n*n];
         for (int i=0;i<n*n;i++){
             dataDeltaPher[i]=0;

@@ -28,7 +28,7 @@ public class Model {
                 Cover cover=new Cover();//объект для обертки в методе Ants.move
               //  DistanzMatrix dmatrix =DistanzMatrix.buildDMatrixFromFile(FILE_DMATRIX);//создаем матрицу смехности
                // PheromonMatrix phMatrix = PheromonMatrix.buildDMatrixFromFile(FILE_PHER_MATRIX);//создаем матрицу феромонов
-                DeltaPherMatrix deltaPherMatrix=new DeltaPherMatrix();//создаем матрицу измененения феромонов
+                DeltaPherMatrix deltaPherMatrix=new DeltaPherMatrix(problem.getDMatrix().n);//создаем матрицу измененения феромонов
                // dmatrix.distanzMatrixShow();
                 ArrayList<Double> grafik=new ArrayList<Double>();//для сейва инфы
                 ArrayList<Integer> bestRouteRun =new ArrayList<>();
