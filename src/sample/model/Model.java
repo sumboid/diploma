@@ -16,24 +16,24 @@ public class Model {
         controller = c;
     }
 
-    public void start() {
+    public void start(int lifeCycle,Parametry parametry,String fileDmatrix,String filePherMatrix) {
         task = new Task<Integer>() {
             @Override
             public Integer call() {
-                String FILE_DMATRIX="DistanzMatrix.m";
-                String FILE_PHER_MATRIX="PhMatrix.m";
+                String FILE_DMATRIX=fileDmatrix;
+                String FILE_PHER_MATRIX=filePherMatrix;
                 Cover cover=new Cover();//объект для обертки в методе Ants.move
                 DistanzMatrix dmatrix =DistanzMatrix.buildDMatrixFromFile(FILE_DMATRIX);//создаем матрицу смехности
                 PheromonMatrix phMatrix = PheromonMatrix.buildDMatrixFromFile(FILE_PHER_MATRIX);//создаем матрицу феромонов
                 DeltaPherMatrix deltaPherMatrix=new DeltaPherMatrix();//создаем матрицу измененения феромонов
                // dmatrix.distanzMatrixShow();
 
-                Ants[] ant=new Ants[Parametry.ANTS_NUMBER];
-                Double topLength[]=new Double[Parametry.lifeСycle];
-                for(int j=0;j<Parametry.lifeСycle;j++){
+                Ants[] ant=new Ants[parametry.ANTS_NUMBER];
+                Double topLength[]=new Double[parametry.lifeСycle];
+                for(int j=0;j<parametry.lifeСycle;j++){
                     topLength[j]= 0.0;
                 }
-                for(int j=0;j<Parametry.ANTS_NUMBER;j++){
+                for(int j=0;j<parametry.ANTS_NUMBER;j++){
                     ant[j]= new Ants(dmatrix.n);
                 }
                 int topLengthlocal=1000,topAnt=-2;
@@ -41,23 +41,23 @@ public class Model {
                 int lifetime=0;
 
 
-                while(lifetime<Parametry.lifeСycle) {             //основное тело цикла
-                    for(int i=0;i<Parametry.ANTS_NUMBER;i++){       //обнуление всех штук у всех муравьев
+                while(lifetime<lifeCycle) {             //основное тело цикла
+                    for(int i=0;i<parametry.ANTS_NUMBER;i++){       //обнуление всех штук у всех муравьев
                         ant[i].antNull(dmatrix.n);
                     }
                     try {
 
                         for (int t = 0; t <= dmatrix.n; t++) {
-                            for (int k = 0; k < Parametry.ANTS_NUMBER; k++) {
-                                cover = ant[k].move(dmatrix.n, dmatrix.data, phMatrix.dataPher, Parametry.endWhile, k);
+                            for (int k = 0; k < parametry.ANTS_NUMBER; k++) {
+                                cover = ant[k].move(dmatrix.n, dmatrix.data, phMatrix.dataPher, parametry.endWhile, k,parametry);
                                 deltaPherMatrix.deltaPherMatrixUpdate(cover);// откладывание изменения феромонов на пути
 
                             }
-                            phMatrix.pheromonMatrixSteam(Parametry.p);
+                            phMatrix.pheromonMatrixSteam(parametry.p);
                             phMatrix.pheromonMatrixUpdate(deltaPherMatrix.dataDeltaPher);
                             deltaPherMatrix.deltaPherMatrixNull();
                         }
-                        for (int k = 0; k < Parametry.ANTS_NUMBER; k++) {
+                        for (int k = 0; k < parametry.ANTS_NUMBER; k++) {
                             if ((topLengthlocal > ant[k].leng) && (ant[k].currentPosition == ant[k].startingPosition)) {
                                 topLengthlocal = ant[k].leng;
                                 topAnt = k;

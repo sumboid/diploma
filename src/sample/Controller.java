@@ -49,7 +49,7 @@ public class Controller {
     @FXML public void textAСhange(){
         TEXT_B.setText(Double.toString(1 - Double.parseDouble(TEXT_AL.getText())));
     }
-    @FXML public void expModulDiv2ButtonOkOnAction(){
+  /*  @FXML public void expModulDiv2ButtonOkOnAction(){
         Parametry.ANTS_NUMBER=Integer.parseInt(TEXTANTSNUMBER.getText());
         TEXTANTSNUMBER.setTooltip(new Tooltip(">0"));
         Parametry.al=Double.parseDouble(TEXT_AL.getText());
@@ -58,7 +58,7 @@ public class Controller {
         Parametry.q=Double.parseDouble(TEXT_Q.getText());
         Parametry.endWhile=Integer.parseInt(TEXT_ENDWHILE.getText());
         Parametry.lifeСycle=Integer.parseInt(TEXT_lifeCycle.getText());
-    }
+    }*/
 
     @FXML
     public void initialize() {
@@ -69,6 +69,17 @@ public class Controller {
     public void clearChart() {
         series.getData().clear();
 
+    }
+    @FXML public void expModulDiv2ButtonOkOnAction(){
+        /*Parametry.ANTS_NUMBER=Integer.parseInt(TEXTANTSNUMBER.getText());
+        TEXTANTSNUMBER.setTooltip(new Tooltip(">0"));
+        Parametry.al=Double.parseDouble(TEXT_AL.getText());
+        Parametry.b=Double.parseDouble(TEXT_B.getText());
+        Parametry.p=Double.parseDouble(TEXT_P.getText());
+        Parametry.q=Double.parseDouble(TEXT_Q.getText());
+        Parametry.endWhile=Integer.parseInt(TEXT_ENDWHILE.getText());
+        Parametry.lifeСycle=Integer.parseInt(TEXT_lifeCycle.getText());
+        Controller2.main();*/
     }
 
     public void setPoint(Double x, Double y) {
