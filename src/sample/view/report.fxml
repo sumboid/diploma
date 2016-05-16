@@ -39,8 +39,7 @@
                     <children>
                         <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                             <children>
-                                <Button mnemonicParsing="false" text="Save" />
-                                <Button mnemonicParsing="false" text="Start" />
+                                <Button mnemonicParsing="false" text="Save" onAction="#handleSave" />
                                 <Separator orientation="VERTICAL" prefHeight="200.0">
                                     <padding>
                                         <Insets bottom="5.0" left="3.0" top="5.0" />

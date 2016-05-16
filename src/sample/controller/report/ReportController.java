@@ -4,14 +4,17 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -23,7 +26,9 @@ import javafx.util.Pair;
 import sample.model.report.Report;
 import sample.model.utils.FileWorker;
 
+import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class ReportController {
@@ -117,6 +122,25 @@ public class ReportController {
             reportRealMap.put(pair.getKey(), pair.getValue());
         }
 
-        engine.loadContent(HTMLbuilding.htmlBuild(reportRealMap));
+        engine.loadContent(HTMLbuilding.htmlBuild(reportRealMap, ""));
+    }
+
+    @FXML public void handleSave(ActionEvent event) throws IOException {
+        final FileChooser fileChooser = new FileChooser();
+        final Window window = ((Node)event.getTarget()).getScene().getWindow();
+        File file = fileChooser.showSaveDialog(window);
+
+        if (file != null) {
+            String path = file.getAbsolutePath();
+            WritableImage snapShot = reportChart.snapshot(new SnapshotParameters(), null);
+            ImageIO.write(SwingFXUtils.fromFXImage(snapShot, null), "png", new File(path + "chart.png"));
+            Map<String, Report> reportRealMap = new HashMap();
+            Collection<Pair<String, Report>> reportPairs = reportMap.values();
+
+            for (Pair<String, Report> pair : reportPairs) {
+                reportRealMap.put(pair.getKey(), pair.getValue());
+            }
+            HTMLbuilding.save(HTMLbuilding.htmlBuild(reportRealMap, file.getName() + "chart.png"), path);
+        }
     }
 }
