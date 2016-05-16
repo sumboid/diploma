@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.JavaFXBuilderFactory;
 import sample.controller.MainController;
+import sample.controller.report.HTMLbuilding;
 import sample.model.Model;
 import sample.model.algorithm.data.*;
 import javafx.scene.input.KeyEvent;
@@ -30,7 +31,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 700, 600));
         primaryStage.show();
 
-
+       // HTMLbuilding.save(HTMLbuilding.htmlBuild());
         model.setController(controller.getRuntimeController());
         controller.setModel(model);
     }

@@ -43,6 +43,7 @@ public class RuntimeController {
     @FXML private Button startButton;
     @FXML private Button reportSaver;
     @FXML private Button problemSelection;
+    @FXML private Label problemName;
 
     @FXML private ListView runtimeParameters;
 
@@ -60,6 +61,8 @@ public class RuntimeController {
         File file = fileChooser.showOpenDialog(window);
         if (file != null) {
             String path = file.getAbsolutePath();
+            String fileName=file.getName();
+            problemName.setText("File name:"+fileName+"; Path:"+path);
             this.problem = (Problem) FileWorker.readObjectFromFile(path);
 
             sample.model.algorithm.data.Parameters parameters = new sample.model.algorithm.data.Parameters();
@@ -81,6 +84,7 @@ public class RuntimeController {
             runtimeParametersData.add("Q: "+problem.getParams().q);
             runtimeParametersData.add("Испарение феромона: "+problem.getParams().p);
             runtimeParametersData.add("Жизненный цикл: "+problem.getParams().lifeСycle);
+            runtimeParametersData.add("Разброс расстояний: 10 - 30 ");
             //
 
 
