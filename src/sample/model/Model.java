@@ -90,18 +90,20 @@ public class Model {
                 }
                 bestRouteRun=bestRoute;
                 bestLength=topLengthlocal;
+                System.out.println("BEST ROUTE LENGTH: " + bestRoute.size());
                 if (topAnt != -2) {
                     System.out.println();
                     for(int i=0;i<problem.getDMatrix().n;i++){
                         System.out.print(bestRoute.get(i) + " ");
                     }
                     System.out.println();
-                    System.out.print(topLengthlocal);
+                    System.out.println("TOP LENGTH: " + topLengthlocal);
                 } else {
                     System.out.println("Route not detected");
                 }
 
                 Report report = new Report(problem,bestRouteRun,bestLength,grafik);
+                System.out.println("Interesting");
                 controller.endExecution(report);
                 return 10;
             }

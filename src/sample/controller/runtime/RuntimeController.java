@@ -65,19 +65,7 @@ public class RuntimeController {
             problemName.setText("File name:"+fileName+"; Path:"+path);
             this.problem = (Problem) FileWorker.readObjectFromFile(path);
 
-            sample.model.algorithm.data.Parameters parameters = new sample.model.algorithm.data.Parameters();
-
-            PheromonMatrix phMatr=PheromonMatrix.buildDMatrixFromFile("PhMatrix.m");
-            DistanzMatrix dMatr=DistanzMatrix.buildDMatrixFromFile("DistanzMatrix.m");
-            Problem problem=new Problem(phMatr,dMatr,parameters);
-
-            // GridPane gridPane=new GridPane();
-           // ColumnConstraints column = new ColumnConstraints(100,100,Double.MAX_VALUE);
-          //  column.setHgrow(Priority.NEVER);
-            //gridPane.getColumnConstraints().addAll(column); // first column gets any extra width
-            //gridPane.add(infoData, 1, 0);
-            //gridPane.add(info, 0, 0);
-          //  Label info=new Label("Количество муравьев: "+problem.getParams().ANTS_NUMBER);
+            runtimeParametersData.clear();
             runtimeParametersData.add("Количество муравьев: "+problem.getParams().ANTS_NUMBER);
             runtimeParametersData.add("al: "+problem.getParams().al);
             runtimeParametersData.add("b: "+problem.getParams().b);
@@ -85,15 +73,12 @@ public class RuntimeController {
             runtimeParametersData.add("Испарение феромона: "+problem.getParams().p);
             runtimeParametersData.add("Жизненный цикл: "+problem.getParams().lifeСycle);
             runtimeParametersData.add("Разброс расстояний: 10 - 30 ");
-            //
-
-
-
         }
     }
 
 
     public void endExecution(Report report) {
+        System.out.println("END OF EXECUTION");
         startButton.setDisable(false);
         reportSaver.setDisable(false);
         problemSelection.setDisable(false);
@@ -101,8 +86,6 @@ public class RuntimeController {
     }
 
     @FXML public void handleStart() {
-//        WritableImage snapShot = exportedPane.snapshot(new SnapshotParameters(), null);
-//        ImageIO.write(SwingFXUtils.fromFXImage(snapShot, null), "png", new File("test.png"));
         clearChart();
         startButton.setDisable(true);
         reportSaver.setDisable(true);
@@ -132,7 +115,7 @@ public class RuntimeController {
     @FXML
     public void initialize() {
         series = new XYChart.Series();
-        series.setName("Скилл Доброго");
+        series.setName("Минимальная длина пути на текущей итерации");
         realtimeChart.getData().add(series);
         runtimeParameters.setItems(runtimeParametersData);
     }

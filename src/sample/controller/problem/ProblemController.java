@@ -89,12 +89,12 @@ public class ProblemController {
     }
 
     @FXML private void setParameters(Parameters params) {
-        TEXTANTSNUMBER.setText(new Integer(params.ANTS_NUMBER).toString());
-        TEXT_AL.setText(new Double(params.al).toString());
-        TEXT_B.setText(new Double(params.b).toString());
-        TEXT_P.setText(new Double(params.p).toString());
-        TEXT_Q.setText(new Double(params.q).toString());
-        TEXT_ENDWHILE.setText(new Integer(params.endWhile).toString());
-        TEXT_lifeCycle.setText(new Integer(params.endWhile).toString());
+        TEXTANTSNUMBER.setText(Integer.toString(params.ANTS_NUMBER));
+        TEXT_AL.setText(Double.toString(params.al));
+        TEXT_B.setText(Double.toString(params.b));
+        TEXT_P.setText(Double.toString(params.p));
+        TEXT_Q.setText(Double.toString(params.q));
+        TEXT_ENDWHILE.setText(Integer.toString(params.endWhile));
+        TEXT_lifeCycle.setText(Integer.toString(params.lifeСycle));
     }
 }
