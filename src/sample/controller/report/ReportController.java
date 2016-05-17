@@ -86,7 +86,7 @@ public class ReportController {
                         reportMap.remove(item);
                         reportsListData.removeAll(item);
 
-                        reportTableData.add(reportTableMap.get(item));
+                        reportTableData.remove(reportTableMap.get(item));
                         reportTableMap.remove(item);
                     });
                     contextMenu.getItems().addAll(deleteItem);
