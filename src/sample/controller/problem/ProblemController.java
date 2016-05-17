@@ -4,12 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import sample.model.algorithm.data.DistanzMatrix;
+import sample.model.algorithm.data.OverParams;
 import sample.model.algorithm.data.Parameters;
 import sample.model.algorithm.data.PheromonMatrix;
 import sample.model.problem.Problem;
@@ -28,9 +30,10 @@ public class ProblemController {
     @FXML private TextField TEXT_B;
     @FXML private TextField TEXT_ENDWHILE;
     @FXML private TextField TEXT_lifeCycle;
-
+    @FXML private TextField TEXT_problemName;
     @FXML private Button saveProblem;
-
+    @FXML private CheckBox CheckBox_EliteAnts;
+    @FXML private TextField TEXT_EliteAnts;
     @FXML private Pane matrixContainer;
 
     @FXML public void handleSaveProblem(ActionEvent event) {
@@ -43,10 +46,15 @@ public class ProblemController {
         params.endWhile=Integer.parseInt(TEXT_ENDWHILE.getText());
         params.lifeСycle=Integer.parseInt(TEXT_lifeCycle.getText());
 
+        OverParams overParams=new OverParams();
+        overParams.useEliteAnts=(CheckBox_EliteAnts.selectedProperty().get());
+        overParams.eliteNumberAnt=(Integer.parseInt(TEXT_EliteAnts.getText()));
+
         DistanzMatrix dm = matrixOptionsController.getMatrix();
         PheromonMatrix phm = PheromonMatrix.generate(dm.n);
 
-        Problem problem = new Problem(phm, dm, params);
+
+        Problem problem = new Problem(phm, dm, params,TEXT_problemName.getText(),overParams);//overParams);
 
         final FileChooser fileChooser = new FileChooser();
         final Window window = ((Node)event.getTarget()).getScene().getWindow();

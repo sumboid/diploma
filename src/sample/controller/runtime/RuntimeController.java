@@ -66,12 +66,15 @@ public class RuntimeController {
             this.problem = (Problem) FileWorker.readObjectFromFile(path);
 
             runtimeParametersData.clear();
+            runtimeParametersData.add(problem.getProblemName());
             runtimeParametersData.add("Количество муравьев: "+problem.getParams().ANTS_NUMBER);
             runtimeParametersData.add("al: "+problem.getParams().al);
             runtimeParametersData.add("b: "+problem.getParams().b);
             runtimeParametersData.add("Q: "+problem.getParams().q);
             runtimeParametersData.add("Испарение феромона: "+problem.getParams().p);
             runtimeParametersData.add("Жизненный цикл: "+problem.getParams().lifeСycle);
+            runtimeParametersData.add(problem.getOverParams().useEliteAnts);
+            runtimeParametersData.add("Количество елитных муравьев: "+problem.getOverParams().eliteNumberAnt);
             runtimeParametersData.add("Разброс расстояний: 10 - 30 ");
         }
     }

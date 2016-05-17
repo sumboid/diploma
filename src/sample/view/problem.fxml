@@ -49,23 +49,32 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                 <children>
-                                    <Label text="Размер колонии" />
-                                    <Label text="Вес расстояния от города до города" GridPane.rowIndex="3" />
-                                    <Label text="Коэффициент испарения феромона" GridPane.rowIndex="1" />
-                                    <Label text="Вес следа феромона" GridPane.rowIndex="2" />
-                                    <Label text="Q" GridPane.rowIndex="4" />
-                                    <Label text="Конечная вершина" GridPane.rowIndex="5" />
-                                    <Label text="Время жизни колонии" GridPane.rowIndex="6" />
-                                    <TextField fx:id="TEXTANTSNUMBER" text="2" GridPane.columnIndex="1" />
-                                    <TextField fx:id="TEXT_P" text="0.05" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="TEXT_AL" text="0.5" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="TEXT_B" text="0.5" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <TextField fx:id="TEXT_Q" text="1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <TextField fx:id="TEXT_ENDWHILE" text="11" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <TextField fx:id="TEXT_lifeCycle" prefHeight="25.0" prefWidth="93.0" text="20" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                    <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <Label text="Название задачи" GridPane.rowIndex="0"/>
+                                    <Label text="Размер колонии" GridPane.rowIndex="1" />
+                                    <Label text="Вес расстояния от города до города" GridPane.rowIndex="4" />
+                                    <Label text="Коэффициент испарения феромона" GridPane.rowIndex="2" />
+                                    <Label text="Вес следа феромона" GridPane.rowIndex="3" />
+                                    <Label text="Q" GridPane.rowIndex="5" />
+                                    <Label text="Конечная вершина" GridPane.rowIndex="6" />
+                                    <Label text="Время жизни колонии" GridPane.rowIndex="7" />
+                                    <Label text="Границы расстояний между городами" GridPane.rowIndex="9" />
+                                    <TextField fx:id="TEXT_problemName" prefHeight="25.0" prefWidth="93.0" text="Новый эксперимент" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                    <TextField fx:id="TEXTANTSNUMBER" text="2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="TEXT_P" text="0.05" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="TEXT_AL" text="0.5" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="TEXT_B" text="0.5" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="TEXT_Q" text="1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="TEXT_ENDWHILE" text="11" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <TextField fx:id="TEXT_lifeCycle" prefHeight="25.0" prefWidth="93.0" text="20" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <TextField fx:id="TEXT_EliteAnts" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
                                     <Label text="Элитные муравьи" GridPane.rowIndex="8" />
-                                </children>
+                                    <CheckBox fx:id="CheckBox_EliteAnts" mnemonicParsing="false" text="" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                                    <TextField fx:id="TEXT_GranicaMin" text="10" GridPane.columnIndex="1" GridPane.rowIndex="9"  />
+                                    <TextField fx:id="TEXT_GranicaMax" text="30" GridPane.columnIndex="2" GridPane.rowIndex="9"  />
+                                    <Label text="Тип задачи коммивояжера" GridPane.rowIndex="10" />
+                                    <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                     </children>
                             </GridPane>
                         </children>
                         <padding>

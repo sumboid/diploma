@@ -23,6 +23,7 @@ public class Model {
         task = new Task<Integer>() {
             @Override
             public Integer call() {
+                long time =0,dTime=0;
                // String FILE_DMATRIX=fileDmatrix;
                // String FILE_PHER_MATRIX=filePherMatrix;
                 Cover cover=new Cover();//объект для обертки в методе Ants.move
@@ -48,7 +49,7 @@ public class Model {
                 ArrayList<Integer> bestRoute =new ArrayList<>();
                 int lifetime=0;
 
-
+                time=System.currentTimeMillis();//time
                 while(lifetime<problem.getParams().lifeСycle) {             //основное тело цикла
                     for(int i = 0; i< problem.getParams().ANTS_NUMBER; i++){       //обнуление всех штук у всех муравьев
                         ant[i].antNull(problem.getDMatrix().n);
@@ -79,15 +80,19 @@ public class Model {
                             topLength[lifetime] = (double) topLengthlocal;
                             System.out.println(topLength[lifetime]);
                         }
+                        dTime=System.currentTimeMillis()-time; //time
                         Thread.sleep(1);
                         final double yoba = lifetime;
                         Platform.runLater(() -> controller.setPoint(yoba,topLength[(int)yoba]));//risyem
                         grafik.add(topLength[(int)yoba]);   ///save
+
                         lifetime++;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
+                time=System.currentTimeMillis()-time;//time
+                System.out.println("time - "+time/1000+","+time%1000);
                 bestRouteRun=bestRoute;
                 bestLength=topLengthlocal;
                 System.out.println("BEST ROUTE LENGTH: " + bestRoute.size());
