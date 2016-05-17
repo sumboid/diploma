@@ -47,10 +47,10 @@ public class MatrixOptionsController {
         table.getColumns().addAll(aCol, bCol, lengthCol);
 
 
-        ((AnchorPane) pane).setTopAnchor(table, 0.0);
-        ((AnchorPane) pane).setBottomAnchor(table, 0.0);
-        ((AnchorPane) pane).setLeftAnchor(table, 0.0);
-        ((AnchorPane) pane).setRightAnchor(table, 0.0);
+        AnchorPane.setTopAnchor(table, 0.0);
+        AnchorPane.setBottomAnchor(table, 0.0);
+        AnchorPane.setLeftAnchor(table, 0.0);
+        AnchorPane.setRightAnchor(table, 0.0);
         ((Pane) pane).getChildren().add(table);
 
         saveButton.setDisable(false);

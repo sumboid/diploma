@@ -11,18 +11,17 @@ import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javafx.util.Pair;
+import sample.controller.report.internal.ReportView;
 import sample.model.report.Report;
 import sample.model.utils.FileWorker;
 
@@ -34,12 +33,10 @@ import java.util.*;
 public class ReportController {
     @FXML private ListView reportsList;
     @FXML private LineChart reportChart;
-    @FXML private WebView reportWebView;
-
-    private WebEngine engine;
+    @FXML private AnchorPane matrixPane;
 
     private ArrayList reportListCheckBoxChoosed=new ArrayList<>();
-    private Map<GridPane, Pair<String, Report>> reportMap = new HashMap();
+    private Map<GridPane, Pair<String, Report>> reportMap = new HashMap<GridPane, Pair<String, Report>>();
     private Map<GridPane, XYChart.Series> seriesMap = new HashMap();
 
     public static final ObservableList reportsListData = FXCollections.observableArrayList();
@@ -53,6 +50,7 @@ public class ReportController {
         this.updateWebContent();
         reportsListData.removeAll(reportListCheckBoxChoosed);
     }
+
     @FXML public void handleChooseReport(ActionEvent event) {
         final FileChooser fileChooser = new FileChooser();
         final Window window = ((Node)event.getTarget()).getScene().getWindow();
@@ -73,7 +71,7 @@ public class ReportController {
                 gridPane.add(checkbox, 1, 0);
                 gridPane.add(reportName, 0, 0);
                 reportsListData.add(gridPane);
-                reportMap.put(gridPane, new Pair(file.getName(), report));
+                reportMap.put(gridPane, new Pair<String, Report>(file.getName(), report));
                 XYChart.Series series = this.makeReportSeries(report);
                 series.setName(file.getName());
                 seriesMap.put(gridPane, series);
@@ -101,7 +99,6 @@ public class ReportController {
     }
 
     @FXML public void initialize() {
-        engine = reportWebView.getEngine();
         reportsList.setItems(reportsListData);
     }
 
@@ -114,15 +111,48 @@ public class ReportController {
         return series;
     }
 
+    private void renderMatrix() {
+        matrixPane.getChildren().clear();
+        TableView table = new TableView();
+
+        TableColumn<ReportView, String> nameCol = new TableColumn<>("Название");
+        TableColumn<ReportView, Integer> sizeCol = new TableColumn<>("Количество городов");
+        TableColumn<ReportView, Integer> cityCol = new TableColumn<>("Стартовый город");
+        TableColumn<ReportView, Double> alCol = new TableColumn<>("Вес следа феромона");
+        TableColumn<ReportView, Double> bCol = new TableColumn<>("Вес расстояния");
+        TableColumn<ReportView, Double> qCol = new TableColumn<>("Коэффициент Q");
+        TableColumn<ReportView, Double> pCol = new TableColumn<>("Коэффициент испарения");
+        TableColumn<ReportView, Integer> iterCol = new TableColumn<>("Время жизни колонии");
+        TableColumn<ReportView, Integer> lengthCol = new TableColumn<>("Кратчайший путь");
+
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        sizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
+        cityCol.setCellValueFactory(new PropertyValueFactory<>("startNode"));
+        alCol.setCellValueFactory(new PropertyValueFactory<>("al"));
+        bCol.setCellValueFactory(new PropertyValueFactory<>("b"));
+        pCol.setCellValueFactory(new PropertyValueFactory<>("p"));
+        qCol.setCellValueFactory(new PropertyValueFactory<>("q"));
+        iterCol.setCellValueFactory(new PropertyValueFactory<>("iterationNumber"));
+        lengthCol.setCellValueFactory(new PropertyValueFactory<>("length"));
+
+        table.getColumns().addAll(nameCol, sizeCol, cityCol, alCol, bCol, pCol, qCol, iterCol, lengthCol);
+
+        AnchorPane.setTopAnchor(table, 0.0);
+        AnchorPane.setBottomAnchor(table, 0.0);
+        AnchorPane.setLeftAnchor(table, 0.0);
+        AnchorPane.setRightAnchor(table, 0.0);
+
+        matrixPane.getChildren().add(table);
+    }
+
     private void updateWebContent() {
-        Map<String, Report> reportRealMap = new HashMap();
+        Map<String, Report> reportRealMap = new HashMap<String, Report>();
         Collection<Pair<String, Report>> reportPairs = reportMap.values();
 
         for (Pair<String, Report> pair : reportPairs) {
             reportRealMap.put(pair.getKey(), pair.getValue());
         }
-
-        engine.loadContent(HTMLbuilding.htmlBuild(reportRealMap, ""));
+        renderMatrix();
     }
 
     @FXML public void handleSave(ActionEvent event) throws IOException {
@@ -134,7 +164,7 @@ public class ReportController {
             String path = file.getAbsolutePath();
             WritableImage snapShot = reportChart.snapshot(new SnapshotParameters(), null);
             ImageIO.write(SwingFXUtils.fromFXImage(snapShot, null), "png", new File(path + "chart.png"));
-            Map<String, Report> reportRealMap = new HashMap();
+            Map<String, Report> reportRealMap = new HashMap<String, Report>();
             Collection<Pair<String, Report>> reportPairs = reportMap.values();
 
             for (Pair<String, Report> pair : reportPairs) {

@@ -101,7 +101,7 @@
                                         <NumberAxis side="LEFT" />
                                     </yAxis>
                                 </LineChart>
-                        <WebView fx:id="reportWebView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                        <AnchorPane fx:id="matrixPane" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
                     </children>
