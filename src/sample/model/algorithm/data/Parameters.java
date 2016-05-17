@@ -7,4 +7,5 @@ public class Parameters implements java.io.Serializable {
     public int ANTS_NUMBER=20;
     public  int ExelentAnts=10;
     public  int endWhile=11,lifeСycle=500;
+    public int eliteNumberAnt = 0;
 }

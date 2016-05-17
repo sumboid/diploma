@@ -10,10 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -45,6 +42,15 @@ public class RuntimeController {
     @FXML private Button problemSelection;
     @FXML private Label problemName;
 
+    @FXML private TextField TEXTANTSNUMBER;
+    @FXML private TextField TEXT_P;
+    @FXML private TextField TEXT_Q;
+    @FXML private TextField TEXT_AL;
+    @FXML private TextField TEXT_B;
+    @FXML private TextField TEXT_ENDWHILE;
+    @FXML private TextField TEXT_lifeCycle;
+    @FXML private TextField ELITE_SQUAD;
+
     @FXML private ListView runtimeParameters;
 
     private Model model;
@@ -53,7 +59,29 @@ public class RuntimeController {
 
     private XYChart.Series series;
 
-    public static final ObservableList runtimeParametersData = FXCollections.observableArrayList();
+    private Parameters createParams() {
+        Parameters params = new Parameters();
+        params.ANTS_NUMBER=Integer.parseInt(TEXTANTSNUMBER.getText());
+        params.al=Double.parseDouble(TEXT_AL.getText());
+        params.b=Double.parseDouble(TEXT_B.getText());
+        params.p=Double.parseDouble(TEXT_P.getText());
+        params.q=Double.parseDouble(TEXT_Q.getText());
+        params.endWhile=Integer.parseInt(TEXT_ENDWHILE.getText());
+        params.lifeСycle=Integer.parseInt(TEXT_lifeCycle.getText());
+        params.eliteNumberAnt = Integer.parseInt(ELITE_SQUAD.getText());
+        return params;
+    }
+
+    @FXML private void setParams(Parameters params) {
+        TEXTANTSNUMBER.setText(Integer.toString(params.ANTS_NUMBER));
+        TEXT_AL.setText(Double.toString(params.al));
+        TEXT_B.setText(Double.toString(params.b));
+        TEXT_P.setText(Double.toString(params.p));
+        TEXT_Q.setText(Double.toString(params.q));
+        TEXT_ENDWHILE.setText(Integer.toString(params.endWhile));
+        TEXT_lifeCycle.setText(Integer.toString(params.lifeСycle));
+        ELITE_SQUAD.setText(Integer.toString(params.eliteNumberAnt));
+    }
 
     @FXML public void handleChooseProblem(ActionEvent event) {
         final FileChooser fileChooser = new FileChooser();
@@ -62,23 +90,10 @@ public class RuntimeController {
         if (file != null) {
             String path = file.getAbsolutePath();
             String fileName=file.getName();
-            problemName.setText("File name:"+fileName+"; Path:"+path);
             this.problem = (Problem) FileWorker.readObjectFromFile(path);
-
-            runtimeParametersData.clear();
-            runtimeParametersData.add(problem.getProblemName());
-            runtimeParametersData.add("Количество муравьев: "+problem.getParams().ANTS_NUMBER);
-            runtimeParametersData.add("al: "+problem.getParams().al);
-            runtimeParametersData.add("b: "+problem.getParams().b);
-            runtimeParametersData.add("Q: "+problem.getParams().q);
-            runtimeParametersData.add("Испарение феромона: "+problem.getParams().p);
-            runtimeParametersData.add("Жизненный цикл: "+problem.getParams().lifeСycle);
-            runtimeParametersData.add(problem.getOverParams().useEliteAnts);
-            runtimeParametersData.add("Количество елитных муравьев: "+problem.getOverParams().eliteNumberAnt);
-            runtimeParametersData.add("Разброс расстояний: 10 - 30 ");
+            problemName.setText(problem.getProblemName());
         }
     }
-
 
     public void endExecution(Report report) {
         System.out.println("END OF EXECUTION");
@@ -93,7 +108,7 @@ public class RuntimeController {
         startButton.setDisable(true);
         reportSaver.setDisable(true);
         problemSelection.setDisable(true);
-        model.start(problem);
+        model.start(problem, createParams());
     }
 
     @FXML public void handleSaveReport(ActionEvent event) {
@@ -120,7 +135,7 @@ public class RuntimeController {
         series = new XYChart.Series();
         series.setName("Минимальная длина пути на текущей итерации");
         realtimeChart.getData().add(series);
-        runtimeParameters.setItems(runtimeParametersData);
+        setParams(new Parameters());
     }
 
     public void setModel(Model model) {

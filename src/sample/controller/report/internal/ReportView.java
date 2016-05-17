@@ -20,7 +20,7 @@ public class ReportView {
 
     public ReportView(Report report) {
         Problem problem = report.getProblem();
-        Parameters params = problem.getParams();
+        Parameters params = report.getParameters();
 
         System.out.println(problem.getProblemName());
         setName(problem.getProblemName());

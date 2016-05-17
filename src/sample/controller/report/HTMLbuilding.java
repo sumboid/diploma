@@ -1,5 +1,6 @@
 package sample.controller.report;
 
+import sample.model.algorithm.data.Parameters;
 import sample.model.report.Report;
 
 import java.io.File;
@@ -23,24 +24,23 @@ public class HTMLbuilding {
                             .append("<th>P</th>")
                             .append("<th>al</th>")
                             .append("<th>b</th>")
-                            .append("<th>Элитные муравьи</th>")
                             .append("<th> Количество Э.м.</th>")
                         .append("</tr>")
                     .append("</thead>");
         builder.append("<tbody>");
         for(String name : names) {
             Report report = reportMap.get(name);
+            Parameters params = report.getParameters();
             builder
                     .append("<tr>")
                         .append("<td>"+name+"</td>")
                         .append("<td>"+report.getProblem().getDMatrix().n + "</td>")
-                        .append("<td>"+report.getProblem().getParams().ANTS_NUMBER+"</td>")
-                        .append("<td>"+report.getProblem().getParams().lifeСycle+"</td>")
-                        .append("<td>"+report.getProblem().getParams().p+"</td>")
-                        .append("<td>"+report.getProblem().getParams().al+"</td>")
-                        .append("<td>"+report.getProblem().getParams().b+"</td>")
-                        .append("<td>"+report.getProblem().getOverParams().useEliteAnts+ "</td>")
-                        .append("<td>"+report.getProblem().getOverParams().eliteNumberAnt+"</td>")
+                        .append("<td>"+params.ANTS_NUMBER+"</td>")
+                        .append("<td>"+params.lifeСycle+"</td>")
+                        .append("<td>"+params.p+"</td>")
+                        .append("<td>"+params.al+"</td>")
+                        .append("<td>"+params.b+"</td>")
+                        .append("<td>"+params.eliteNumberAnt+"</td>")
                     .append("</tr>");
         }
 

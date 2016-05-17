@@ -12,9 +12,6 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Created by roman on 16.05.16.
- */
 public class LibraryController implements Initializable {
     @FXML WebView libWebView;
     @FXML

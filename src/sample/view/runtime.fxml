@@ -27,14 +27,53 @@
             <children>
                 <GridPane GridPane.rowIndex="1">
                     <columnConstraints>
-                        <ColumnConstraints minWidth="10.0" prefWidth="300.0" />
+                        <ColumnConstraints minWidth="10.0" prefWidth="400.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <ListView fx:id="runtimeParameters" prefHeight="200.0" prefWidth="200.0" />
+                        <GridPane>
+                            <columnConstraints>
+                              <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="184.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="138.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                            </rowConstraints>
+                             <children>
+                                <TextField fx:id="TEXT_ENDWHILE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="TEXT_lifeCycle" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                <TextField fx:id="TEXT_Q" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <TextField fx:id="TEXT_B" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="TEXT_AL" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="TEXT_P" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <Label text="Вес следа феромона" GridPane.rowIndex="2" />
+                                <Label text="Стартовый город" GridPane.rowIndex="1" />
+                                <Label text="Вес расстояния" GridPane.rowIndex="3" />
+                                <Label text="Коэффициент Q" GridPane.rowIndex="4" />
+                                <Label text="Время жизни колонии" GridPane.rowIndex="7" />
+                                <Label text="Коэффициент испарения" GridPane.rowIndex="5" />
+                                <Label text="Элитные муравьи" GridPane.rowIndex="6" />
+                                <TextField fx:id="ELITE_SQUAD" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                <Label text="Число муравьев" />
+                                <TextField fx:id="TEXTANTSNUMBER" GridPane.columnIndex="1" />
+                             </children>
+                             <padding>
+                                <Insets left="15.0" />
+                             </padding>
+                             <GridPane.margin>
+                                <Insets right="15.0" top="15.0" />
+                             </GridPane.margin>
+                        </GridPane>
                         <LineChart fx:id="realtimeChart" animated="false" createSymbols="false" horizontalZeroLineVisible="false" title="Real-time data" GridPane.columnIndex="1">
                             <xAxis>
                                 <NumberAxis side="BOTTOM" />

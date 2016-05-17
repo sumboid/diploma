@@ -14,17 +14,28 @@ public class Report implements Serializable {
     ArrayList<Double> grafik=new ArrayList<>();// лист с точками графика которые должны отрисовываться
     ArrayList<Integer> bestRouteRun =new ArrayList<>();// лучший маршрут
     double bestLength;
+    Parameters parameters;
 
-    public Report(Problem problem,ArrayList<Integer> bestRouteRun,double bestLength,ArrayList<Double> grafik) {
+    public Report(Problem problem, Parameters params, ArrayList<Integer> bestRouteRun, double bestLength, ArrayList<Double> grafik) {
         this.problem = problem;
         this.grafik= grafik;
         this.bestRouteRun=bestRouteRun;
         this.bestLength=bestLength;
+        this.parameters = params;
     }
     public void setpoint(Double point){
         this.grafik.add(point);
 
     }
+
+    public Parameters getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Parameters parameters) {
+        this.parameters = parameters;
+    }
+
     public Problem getProblem(){return problem;}
 
     public  void setProblem(Problem problem){this.problem=problem;}

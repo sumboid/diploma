@@ -8,23 +8,13 @@ import sample.model.algorithm.data.PheromonMatrix;
 public class Problem implements java.io.Serializable {
     private  PheromonMatrix phMatrix;
     private  DistanzMatrix dMatrix;
-    private  Parameters params;
     private String problemName;
-    private OverParams overParams;
 
-    public Problem(PheromonMatrix phMatrix, DistanzMatrix dMatrix, Parameters params, String problemName
-            ,OverParams overParams
-    ) {
+    public Problem(PheromonMatrix phMatrix, DistanzMatrix dMatrix, String problemName) {
         this.phMatrix = phMatrix;
-        this.params = params;
         this.dMatrix=dMatrix;
         this.problemName=problemName;
-        this.overParams=overParams;
     }
-
-    public  OverParams getOverParams(){return overParams;}
-
-    public  void setOverParams(OverParams overParams){this.overParams=overParams;}
 
     public  DistanzMatrix getDMatrix(){return dMatrix;}
 
@@ -37,14 +27,6 @@ public class Problem implements java.io.Serializable {
 
     public  void setPhMatrix(PheromonMatrix phMatrix) {
         this.phMatrix = phMatrix;
-    }
-
-    public  Parameters getParams() {
-        return params;
-    }
-
-    public  void setParams(Parameters params) {
-        this.params = params;
     }
 
     public  String getProblemName() {

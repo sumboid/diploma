@@ -22,39 +22,16 @@ import java.io.*;
 public class ProblemController {
     @FXML private GridPane matrixOptions;
     @FXML private MatrixOptionsController matrixOptionsController;
+    @FXML private TextField problemName;
 
-    @FXML private TextField TEXTANTSNUMBER;
-    @FXML private TextField TEXT_P;
-    @FXML private TextField TEXT_Q;
-    @FXML private TextField TEXT_AL;
-    @FXML private TextField TEXT_B;
-    @FXML private TextField TEXT_ENDWHILE;
-    @FXML private TextField TEXT_lifeCycle;
-    @FXML private TextField TEXT_problemName;
     @FXML private Button saveProblem;
-    @FXML private CheckBox CheckBox_EliteAnts;
-    @FXML private TextField TEXT_EliteAnts;
     @FXML private Pane matrixContainer;
 
     @FXML public void handleSaveProblem(ActionEvent event) {
-        Parameters params = new Parameters();
-        params.ANTS_NUMBER=Integer.parseInt(TEXTANTSNUMBER.getText());
-        params.al=Double.parseDouble(TEXT_AL.getText());
-        params.b=Double.parseDouble(TEXT_B.getText());
-        params.p=Double.parseDouble(TEXT_P.getText());
-        params.q=Double.parseDouble(TEXT_Q.getText());
-        params.endWhile=Integer.parseInt(TEXT_ENDWHILE.getText());
-        params.lifeСycle=Integer.parseInt(TEXT_lifeCycle.getText());
-
-        OverParams overParams=new OverParams();
-        overParams.useEliteAnts=(CheckBox_EliteAnts.selectedProperty().get());
-        overParams.eliteNumberAnt=(Integer.parseInt(TEXT_EliteAnts.getText()));
-
         DistanzMatrix dm = matrixOptionsController.getMatrix();
         PheromonMatrix phm = PheromonMatrix.generate(dm.n);
 
-
-        Problem problem = new Problem(phm, dm, params,TEXT_problemName.getText(),overParams);//overParams);
+        Problem problem = new Problem(phm, dm, problemName.getText());
 
         final FileChooser fileChooser = new FileChooser();
         final Window window = ((Node)event.getTarget()).getScene().getWindow();
@@ -74,8 +51,6 @@ public class ProblemController {
             String path = file.getAbsolutePath();
             Problem problem = (Problem) FileWorker.readObjectFromFile(path);
             if (problem != null) {
-                Parameters params = problem.getParams();
-                setParameters(params);
                 matrixOptionsController.setMatrix(problem.getDMatrix());
             }
         }
@@ -86,23 +61,11 @@ public class ProblemController {
         matrixContainer.getChildren().removeAll(matrixContainer.getChildren());
         matrixContainer.getChildren().addAll(matrixOptions);
         saveProblem.setDisable(true);
-        setParameters(new Parameters());
     }
 
     @FXML public void initialize() {
-        setParameters(new Parameters());
         matrixOptionsController.setParentContainer(matrixContainer);
         matrixOptionsController.setSelf(matrixOptions);
         matrixOptionsController.setSaveButton(saveProblem);
-    }
-
-    @FXML private void setParameters(Parameters params) {
-        TEXTANTSNUMBER.setText(Integer.toString(params.ANTS_NUMBER));
-        TEXT_AL.setText(Double.toString(params.al));
-        TEXT_B.setText(Double.toString(params.b));
-        TEXT_P.setText(Double.toString(params.p));
-        TEXT_Q.setText(Double.toString(params.q));
-        TEXT_ENDWHILE.setText(Integer.toString(params.endWhile));
-        TEXT_lifeCycle.setText(Integer.toString(params.lifeСycle));
     }
 }
