@@ -38,20 +38,12 @@ public class ReportController {
     @FXML private AnchorPane matrixPane;
 
     private ArrayList reportListCheckBoxChoosed=new ArrayList<>();
-    private Map<String, Pair<String, Report>> reportMap = new HashMap();
+    private Map<String, Report> reportMap = new HashMap();
     private Map<String, XYChart.Series> seriesMap = new HashMap();
+    private ObservableList<ReportView> reportTableData = FXCollections.observableArrayList();
+    private Map<String, ReportView> reportTableMap = new HashMap<>();
 
     public static final ObservableList reportsListData = FXCollections.observableArrayList();
-
-    @FXML public void reportDelPress(){
-        for(Object pane: reportListCheckBoxChoosed) {
-            reportChart.getData().removeAll(seriesMap.get(pane));
-            seriesMap.remove(pane);
-            reportMap.remove(pane);
-        }
-        this.updateWebContent();
-        reportsListData.removeAll(reportListCheckBoxChoosed);
-    }
 
     @FXML public void handleChooseReport(ActionEvent event) {
         final FileChooser fileChooser = new FileChooser();
@@ -63,19 +55,22 @@ public class ReportController {
             if (report != null) {
                 String expParm=report.getProblem().getProblemName();
                 reportsListData.add(expParm+": "+file.getAbsolutePath());
-                reportMap.put(expParm+": "+file.getAbsolutePath(), new Pair(file.getName(), report));
+                reportMap.put(expParm+": "+file.getAbsolutePath(), report);
                 XYChart.Series series = this.makeReportSeries(report);
                 series.setName(file.getName());
                 seriesMap.put(expParm+": "+file.getAbsolutePath(), series);
 
                 reportChart.getData().add(series);
 
-                this.updateWebContent();
+                ReportView reportView = new ReportView(report);
+                reportTableData.add(reportView);
+                reportTableMap.put(expParm+": "+file.getAbsolutePath(), reportView);
             }
         }
     }
 
     @FXML public void initialize() {
+        renderMatrix();
         reportsList.setItems(reportsListData);
         reportsList.setCellFactory(lv ->{
                     ListCell<String> cell = new ListCell<>();
@@ -90,7 +85,9 @@ public class ReportController {
                         seriesMap.remove(item);
                         reportMap.remove(item);
                         reportsListData.removeAll(item);
-                        this.updateWebContent();
+
+                        reportTableData.add(reportTableMap.get(item));
+                        reportTableMap.remove(item);
                     });
                     contextMenu.getItems().addAll(deleteItem);
 
@@ -100,7 +97,6 @@ public class ReportController {
                         if (isNowEmpty) {
                             cell.setContextMenu(null);
                         } else {
-                            //System.out.println("removeALALAL");
                             cell.setContextMenu(contextMenu);
                         }
                     });
@@ -149,17 +145,9 @@ public class ReportController {
         AnchorPane.setLeftAnchor(table, 0.0);
         AnchorPane.setRightAnchor(table, 0.0);
 
+        table.setItems(reportTableData);
+
         matrixPane.getChildren().add(table);
-    }
-
-    private void updateWebContent() {
-        Map<String, Report> reportRealMap = new HashMap<String, Report>();
-        Collection<Pair<String, Report>> reportPairs = reportMap.values();
-
-        for (Pair<String, Report> pair : reportPairs) {
-            reportRealMap.put(pair.getKey(), pair.getValue());
-        }
-        renderMatrix();
     }
 
     @FXML public void handleSave(ActionEvent event) throws IOException {
@@ -172,12 +160,9 @@ public class ReportController {
             WritableImage snapShot = reportChart.snapshot(new SnapshotParameters(), null);
             ImageIO.write(SwingFXUtils.fromFXImage(snapShot, null), "png", new File(path + "chart.png"));
             Map<String, Report> reportRealMap = new HashMap<String, Report>();
-            Collection<Pair<String, Report>> reportPairs = reportMap.values();
+            Collection<Report> reportPairs = reportMap.values();
 
-            for (Pair<String, Report> pair : reportPairs) {
-                reportRealMap.put(pair.getKey(), pair.getValue());
-            }
-            HTMLbuilding.save(HTMLbuilding.htmlBuild(reportRealMap, file.getName() + "chart.png"), path);
+           // HTMLbuilding.save(HTMLbuilding.htmlBuild(reportRealMap, file.getName() + "chart.png"), path);
         }
     }
 }

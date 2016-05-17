@@ -79,7 +79,7 @@
                                 <ListView fx:id="reportsList" />
                                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.vgrow="NEVER">
                                     <children>
-                                        <Button mnemonicParsing="false" onAction="#reportDelPress" text="Del" />
+                                        <Button mnemonicParsing="false" text="Del" />
                                     </children>
                                 </HBox>
                             </children>

@@ -8,20 +8,21 @@ import sample.model.problem.Problem;
 import sample.model.report.Report;
 
 public class ReportView {
-    private SimpleStringProperty name;
-    private SimpleIntegerProperty size;
-    private SimpleDoubleProperty length;
-    private SimpleIntegerProperty startNode;
-    private SimpleDoubleProperty al;
-    private SimpleDoubleProperty b;
-    private SimpleDoubleProperty q;
-    private SimpleDoubleProperty p;
-    private SimpleIntegerProperty iterationsNumber;
+    private SimpleStringProperty name = new SimpleStringProperty();
+    private SimpleIntegerProperty size = new SimpleIntegerProperty();
+    private SimpleDoubleProperty length = new SimpleDoubleProperty();
+    private SimpleIntegerProperty startNode = new SimpleIntegerProperty();
+    private SimpleDoubleProperty al = new SimpleDoubleProperty();
+    private SimpleDoubleProperty b = new SimpleDoubleProperty();
+    private SimpleDoubleProperty q = new SimpleDoubleProperty();
+    private SimpleDoubleProperty p = new SimpleDoubleProperty();
+    private SimpleIntegerProperty iterationsNumber = new SimpleIntegerProperty();
 
     public ReportView(Report report) {
         Problem problem = report.getProblem();
         Parameters params = problem.getParams();
 
+        System.out.println(problem.getProblemName());
         setName(problem.getProblemName());
         setSize(problem.getDMatrix().n);
         setLength(report.getBestLength());
