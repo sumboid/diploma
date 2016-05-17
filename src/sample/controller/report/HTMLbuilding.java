@@ -17,10 +17,14 @@ public class HTMLbuilding {
                     .append("<thead>")
                         .append("<tr>")
                             .append("<th>ReportName</th>")
+                            .append("<th>Cities</th>")
                             .append("<th>num_ants</th>")
                             .append("<th>lifeCycle</th>")
                             .append("<th>P</th>")
                             .append("<th>al</th>")
+                            .append("<th>b</th>")
+                            .append("<th>Элитные муравьи</th>")
+                            .append("<th> Количество Э.м.</th>")
                         .append("</tr>")
                     .append("</thead>");
         builder.append("<tbody>");
@@ -29,10 +33,14 @@ public class HTMLbuilding {
             builder
                     .append("<tr>")
                         .append("<td>"+name+"</td>")
+                        .append("<td>"+report.getProblem().getDMatrix().n + "</td>")
                         .append("<td>"+report.getProblem().getParams().ANTS_NUMBER+"</td>")
                         .append("<td>"+report.getProblem().getParams().lifeСycle+"</td>")
                         .append("<td>"+report.getProblem().getParams().p+"</td>")
                         .append("<td>"+report.getProblem().getParams().al+"</td>")
+                        .append("<td>"+report.getProblem().getParams().b+"</td>")
+                        .append("<td>"+report.getProblem().getOverParams().useEliteAnts+ "</td>")
+                        .append("<td>"+report.getProblem().getOverParams().eliteNumberAnt+"</td>")
                     .append("</tr>");
         }
 

@@ -1,5 +1,6 @@
 package sample.controller.report;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +13,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
@@ -36,8 +38,8 @@ public class ReportController {
     @FXML private AnchorPane matrixPane;
 
     private ArrayList reportListCheckBoxChoosed=new ArrayList<>();
-    private Map<GridPane, Pair<String, Report>> reportMap = new HashMap<GridPane, Pair<String, Report>>();
-    private Map<GridPane, XYChart.Series> seriesMap = new HashMap();
+    private Map<String, Pair<String, Report>> reportMap = new HashMap();
+    private Map<String, XYChart.Series> seriesMap = new HashMap();
 
     public static final ObservableList reportsListData = FXCollections.observableArrayList();
 
@@ -59,47 +61,52 @@ public class ReportController {
             String path = file.getAbsolutePath();
             Report report = (Report) FileWorker.readObjectFromFile(path);
             if (report != null) {
-                GridPane gridPane = new GridPane();
-                ColumnConstraints column1 = new ColumnConstraints(100, 100, Double.MAX_VALUE);
-                column1.setHgrow(Priority.NEVER);
-                gridPane.getColumnConstraints().addAll(column1); // first column gets any extra width
-
-                CheckBox checkbox = new CheckBox();
-                checkbox.setSelected(true);
-                Label reportName = new Label(file.getAbsolutePath());
-
-                gridPane.add(checkbox, 1, 0);
-                gridPane.add(reportName, 0, 0);
-                reportsListData.add(gridPane);
-                reportMap.put(gridPane, new Pair<String, Report>(file.getName(), report));
+                String expParm=report.getProblem().getProblemName();
+                reportsListData.add(expParm+": "+file.getAbsolutePath());
+                reportMap.put(expParm+": "+file.getAbsolutePath(), new Pair(file.getName(), report));
                 XYChart.Series series = this.makeReportSeries(report);
                 series.setName(file.getName());
-                seriesMap.put(gridPane, series);
+                seriesMap.put(expParm+": "+file.getAbsolutePath(), series);
+
                 reportChart.getData().add(series);
 
                 this.updateWebContent();
-
-                checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                    public void changed(ObservableValue<? extends Boolean> ov,
-                                        Boolean old_val, Boolean new_val) {
-                        System.out.println(file.getAbsolutePath());
-                        System.out.println(new_val);
-                        if (new_val == false) {
-                            reportListCheckBoxChoosed.add(gridPane);
-                        }
-                        if (new_val == true) {
-                            reportListCheckBoxChoosed.remove(gridPane);
-                        }
-                        System.out.println(reportListCheckBoxChoosed.get(0));
-                        // reportName.setText("2312");
-                    }
-                });
             }
         }
     }
 
     @FXML public void initialize() {
         reportsList.setItems(reportsListData);
+        reportsList.setCellFactory(lv ->{
+                    ListCell<String> cell = new ListCell<>();
+                    ContextMenu  contextMenu = new ContextMenu();
+                    MenuItem editItem = new MenuItem();
+                    MenuItem deleteItem = new MenuItem();
+                    deleteItem.textProperty().bind(Bindings.format("Delete \"%s\"", cell.itemProperty()));
+                    deleteItem.setOnAction(event -> {
+                        String item = cell.getItem();
+                        reportsList.getItems().remove(item);
+                        reportChart.getData().removeAll(seriesMap.get(item));
+                        seriesMap.remove(item);
+                        reportMap.remove(item);
+                        reportsListData.removeAll(item);
+                        this.updateWebContent();
+                    });
+                    contextMenu.getItems().addAll(deleteItem);
+
+                    cell.textProperty().bind(cell.itemProperty());
+
+                    cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                        if (isNowEmpty) {
+                            cell.setContextMenu(null);
+                        } else {
+                            //System.out.println("removeALALAL");
+                            cell.setContextMenu(contextMenu);
+                        }
+                    });
+                    return cell ;
+                }
+        );
     }
 
     @FXML private XYChart.Series makeReportSeries(Report report) {
