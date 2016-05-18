@@ -1,5 +1,7 @@
 package sample.controller.report;
 
+import javafx.collections.ObservableList;
+import sample.controller.report.internal.ReportView;
 import sample.model.algorithm.data.Parameters;
 import sample.model.report.Report;
 
@@ -7,11 +9,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Set;
 
 public class HTMLbuilding {
-    private static String genTable(Map<String, Report> reportMap) {
-        Set<String> names = reportMap.keySet();
+    private static String genTable(ObservableList<ReportView> reports) {
         StringBuilder builder =new StringBuilder();
         builder
                 .append("<table class='report-table'>")
@@ -28,19 +30,17 @@ public class HTMLbuilding {
                         .append("</tr>")
                     .append("</thead>");
         builder.append("<tbody>");
-        for(String name : names) {
-            Report report = reportMap.get(name);
-            Parameters params = report.getParameters();
+        for(ReportView report : reports) {
             builder
                     .append("<tr>")
-                        .append("<td>"+name+"</td>")
-                        .append("<td>"+report.getProblem().getDMatrix().n + "</td>")
-                        .append("<td>"+params.ANTS_NUMBER+"</td>")
-                        .append("<td>"+params.lifeСycle+"</td>")
-                        .append("<td>"+params.p+"</td>")
-                        .append("<td>"+params.al+"</td>")
-                        .append("<td>"+params.b+"</td>")
-                        .append("<td>"+params.eliteNumberAnt+"</td>")
+                        .append("<td>"+report.getName()+"</td>")
+                        .append("<td>"+report.getSize() + "</td>")
+                        .append("<td>"+report.getAntsNumber()+"</td>")
+                        .append("<td>"+report.getIterationsNumber()+"</td>")
+                        .append("<td>"+report.getP()+"</td>")
+                        .append("<td>"+report.getAl()+"</td>")
+                        .append("<td>"+report.getB()+"</td>")
+                        .append("<td>"+report.getEliteAntsNumber()+"</td>")
                     .append("</tr>");
         }
 
@@ -79,8 +79,7 @@ public class HTMLbuilding {
         return builder.toString();
     }
 
-    public static String htmlBuild(Map<String, Report> reportMap, String image){
-        Set<String> names = reportMap.keySet();
+    public static String htmlBuild(ObservableList<ReportView> reports, String image){
         StringBuilder builder =new StringBuilder();
 
         builder
@@ -89,7 +88,7 @@ public class HTMLbuilding {
                     .append("<body>")
                     .append(genImage(image))
                     .append("<div class='report-table-container'>")
-                        .append(genTable(reportMap))
+                        .append(genTable(reports))
                     .append("</div>")
                     .append("</body>")
                 .append("</html>");

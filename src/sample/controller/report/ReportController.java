@@ -8,7 +8,11 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -21,6 +25,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Pair;
 import sample.controller.report.internal.ReportView;
@@ -164,18 +169,34 @@ public class ReportController {
     }
 
     @FXML public void handleSave(ActionEvent event) throws IOException {
-        final FileChooser fileChooser = new FileChooser();
-        final Window window = ((Node)event.getTarget()).getScene().getWindow();
-        File file = fileChooser.showSaveDialog(window);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("view/htmlEditor.fxml"));
+            fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
 
-        if (file != null) {
-            String path = file.getAbsolutePath();
-            WritableImage snapShot = reportChart.snapshot(new SnapshotParameters(), null);
-            ImageIO.write(SwingFXUtils.fromFXImage(snapShot, null), "png", new File(path + "chart.png"));
-            Map<String, Report> reportRealMap = new HashMap<String, Report>();
-            Collection<Report> reportPairs = reportMap.values();
+            Parent root = fxmlLoader.load(getClass().getResource("../../view/htmlEditor.fxml").openStream());
+            ReportEditorController controller = fxmlLoader.getController();
+            controller.setHTML(HTMLbuilding.htmlBuild(reportTableData, ""));
+            Stage stage = new Stage();
+            stage.setTitle("Report editor");
+            stage.setScene(new Scene(root, 800, 600));
+            stage.show();
 
-           // HTMLbuilding.save(HTMLbuilding.htmlBuild(reportRealMap, file.getName() + "chart.png"), path);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+//        final FileChooser fileChooser = new FileChooser();
+//        final Window window = ((Node)event.getTarget()).getScene().getWindow();
+//        File file = fileChooser.showSaveDialog(window);
+//
+//        if (file != null) {
+//            String path = file.getAbsolutePath();
+//            WritableImage snapShot = reportChart.snapshot(new SnapshotParameters(), null);
+//            ImageIO.write(SwingFXUtils.fromFXImage(snapShot, null), "png", new File(path + "chart.png"));
+//            Map<String, Report> reportRealMap = new HashMap<String, Report>();
+//            Collection<Report> reportPairs = reportMap.values();
+//
+//           // HTMLbuilding.save(HTMLbuilding.htmlBuild(reportRealMap, file.getName() + "chart.png"), path);
+//        }
     }
 }

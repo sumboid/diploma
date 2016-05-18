@@ -10,6 +10,7 @@ import sample.model.report.Report;
 public class ReportView {
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleIntegerProperty size = new SimpleIntegerProperty();
+    private SimpleIntegerProperty antsNumber = new SimpleIntegerProperty();
     private SimpleDoubleProperty length = new SimpleDoubleProperty();
     private SimpleIntegerProperty startNode = new SimpleIntegerProperty();
     private SimpleDoubleProperty al = new SimpleDoubleProperty();
@@ -17,6 +18,7 @@ public class ReportView {
     private SimpleDoubleProperty q = new SimpleDoubleProperty();
     private SimpleDoubleProperty p = new SimpleDoubleProperty();
     private SimpleIntegerProperty iterationsNumber = new SimpleIntegerProperty();
+    private SimpleIntegerProperty eliteAntsNumber = new SimpleIntegerProperty();
 
     public ReportView(Report report) {
         Problem problem = report.getProblem();
@@ -24,6 +26,7 @@ public class ReportView {
 
         System.out.println(problem.getProblemName());
         setName(problem.getProblemName());
+        setAntsNumber(report.getParameters().ANTS_NUMBER);
         setSize(problem.getDMatrix().n);
         setLength(report.getBestLength());
         setStartNode(params.endWhile);
@@ -32,6 +35,31 @@ public class ReportView {
         setQ(params.q);
         setP(params.p);
         setIterationsNumber(params.lifeСycle);
+        setEliteAntsNumber(params.eliteNumberAnt);
+    }
+
+    public int getEliteAntsNumber() {
+        return eliteAntsNumber.get();
+    }
+
+    public SimpleIntegerProperty eliteAntsNumberProperty() {
+        return eliteAntsNumber;
+    }
+
+    public void setEliteAntsNumber(int eliteAntsNumber) {
+        this.eliteAntsNumber.set(eliteAntsNumber);
+    }
+
+    public int getAntsNumber() {
+        return antsNumber.get();
+    }
+
+    public SimpleIntegerProperty antsNumberProperty() {
+        return antsNumber;
+    }
+
+    public void setAntsNumber(int antsNumber) {
+        this.antsNumber.set(antsNumber);
     }
 
     public String getName() {
