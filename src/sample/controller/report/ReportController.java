@@ -53,18 +53,22 @@ public class ReportController {
             String path = file.getAbsolutePath();
             Report report = (Report) FileWorker.readObjectFromFile(path);
             if (report != null) {
+
                 String expParm=report.getProblem().getProblemName();
-                reportsListData.add(expParm+": "+file.getAbsolutePath());
-                reportMap.put(expParm+": "+file.getAbsolutePath(), report);
-                XYChart.Series series = this.makeReportSeries(report);
-                series.setName(file.getName());
-                seriesMap.put(expParm+": "+file.getAbsolutePath(), series);
 
-                reportChart.getData().add(series);
+                if(!reportsListData.contains(expParm+": "+file.getAbsolutePath())) {
+                    reportsListData.add(expParm + ": " + file.getAbsolutePath());
+                    reportMap.put(expParm + ": " + file.getAbsolutePath(), report);
+                    XYChart.Series series = this.makeReportSeries(report);
+                    series.setName(report.getProblem().getProblemName());
+                    seriesMap.put(expParm + ": " + file.getAbsolutePath(), series);
 
-                ReportView reportView = new ReportView(report);
-                reportTableData.add(reportView);
-                reportTableMap.put(expParm+": "+file.getAbsolutePath(), reportView);
+                    reportChart.getData().add(series);
+
+                    ReportView reportView = new ReportView(report);
+                    reportTableData.add(reportView);
+                    reportTableMap.put(expParm + ": " + file.getAbsolutePath(), reportView);
+                }
             }
         }
     }
@@ -119,14 +123,23 @@ public class ReportController {
         TableView table = new TableView();
 
         TableColumn<ReportView, String> nameCol = new TableColumn<>("Название");
+        nameCol.setMinWidth(100);
         TableColumn<ReportView, Integer> sizeCol = new TableColumn<>("Количество городов");
+        sizeCol.setMinWidth(200);
         TableColumn<ReportView, Integer> cityCol = new TableColumn<>("Стартовый город");
+        cityCol.setMinWidth(150);
         TableColumn<ReportView, Double> alCol = new TableColumn<>("Вес следа феромона");
+        alCol.setMinWidth(100);
         TableColumn<ReportView, Double> bCol = new TableColumn<>("Вес расстояния");
+        bCol.setMinWidth(150);
         TableColumn<ReportView, Double> qCol = new TableColumn<>("Коэффициент Q");
+        qCol.setMinWidth(150);
         TableColumn<ReportView, Double> pCol = new TableColumn<>("Коэффициент испарения");
+        pCol.setMinWidth(150);
         TableColumn<ReportView, Integer> iterCol = new TableColumn<>("Время жизни колонии");
+        iterCol.setMinWidth(100);
         TableColumn<ReportView, Integer> lengthCol = new TableColumn<>("Кратчайший путь");
+        lengthCol.setMinWidth(150);
 
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         sizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
