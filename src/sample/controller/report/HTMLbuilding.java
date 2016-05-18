@@ -19,14 +19,16 @@ public class HTMLbuilding {
                 .append("<table class='report-table'>")
                     .append("<thead>")
                         .append("<tr>")
-                            .append("<th>ReportName</th>")
-                            .append("<th>Cities</th>")
-                            .append("<th>num_ants</th>")
-                            .append("<th>lifeCycle</th>")
-                            .append("<th>P</th>")
-                            .append("<th>al</th>")
-                            .append("<th>b</th>")
-                            .append("<th> Количество Э.м.</th>")
+                            .append("<th>Название</th>")
+                            .append("<th>Количество городов</th>")
+                            .append("<th>Количество муравьев</th>")
+                            .append("<th>Количество итераций</th>")
+                            .append("<th>Коэффициент испарения</th>")
+                            .append("<th>Вес следа феромона</th>")
+                            .append("<th>Вес расстояния</th>")
+                            .append("<th>Q</th>")
+                            .append("<th>Число элитных муравьев</th>")
+                            .append("<th>Кратчайший путь</th>")
                         .append("</tr>")
                     .append("</thead>");
         builder.append("<tbody>");
@@ -40,7 +42,9 @@ public class HTMLbuilding {
                         .append("<td>"+report.getP()+"</td>")
                         .append("<td>"+report.getAl()+"</td>")
                         .append("<td>"+report.getB()+"</td>")
+                        .append("<td>"+report.getQ()+"</td>")
                         .append("<td>"+report.getEliteAntsNumber()+"</td>")
+                        .append("<td>"+report.getLength()+"</td>")
                     .append("</tr>");
         }
 
@@ -50,7 +54,7 @@ public class HTMLbuilding {
     }
 
     private static String genImage(String image) {
-        return "<img class='report-image-src' src='" + image + "'/>";
+        return "<img class='report-image-src' src='data:image/png;base64," + image + "'/>";
     }
 
     private static String genHead() {
@@ -58,10 +62,6 @@ public class HTMLbuilding {
         builder
                 .append("<head>")
                     .append("<style>")
-                        .append("* {")
-                            .append("font-family: sans-serif;")
-                            .append("font-size: 12px;")
-                        .append("}")
                         .append(".report-table-container {")
                             .append("width: 100%;")
                         .append("}")
@@ -72,6 +72,11 @@ public class HTMLbuilding {
                             .append("border-spacing: 0.5rem;")
                             .append("border: 1px solid #999;")
                             .append("height: 30px;")
+                            .append("font-family: sans-serif;")
+                            .append("font-size: 12px;")
+                        .append("}")
+                        .append("h1 {")
+                            .append("font-family: sans-serif;")
                         .append("}")
                     .append("</style>")
                 .append("</head>");
@@ -79,16 +84,26 @@ public class HTMLbuilding {
         return builder.toString();
     }
 
-    public static String htmlBuild(ObservableList<ReportView> reports, String image){
+    public static String htmlBuild(ObservableList<ReportView> reports, String image, String text){
         StringBuilder builder =new StringBuilder();
 
         builder
                 .append("<html>")
                     .append(genHead())
                     .append("<body>")
-                    .append(genImage(image))
+                    .append("<center>")
+                        .append("<h1>Отчет</h1>")
+                        .append(genImage(image))
+                    .append("</center>")
                     .append("<div class='report-table-container'>")
                         .append(genTable(reports))
+                    .append("</div>")
+                    .append("<div class='report-text'>")
+                        .append("<br />")
+                        .append("<br />")
+                        .append("<hr />")
+                        .append("<br />")
+                        .append(text)
                     .append("</div>")
                     .append("</body>")
                 .append("</html>");

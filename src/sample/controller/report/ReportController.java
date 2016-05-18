@@ -33,8 +33,8 @@ import sample.model.report.Report;
 import sample.model.utils.FileWorker;
 
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.*;
 
 public class ReportController {
@@ -131,6 +131,8 @@ public class ReportController {
         nameCol.setMinWidth(100);
         TableColumn<ReportView, Integer> sizeCol = new TableColumn<>("Количество городов");
         sizeCol.setMinWidth(200);
+        TableColumn<ReportView, Integer> antSizeCol = new TableColumn<>("Количество муравьев");
+        sizeCol.setMinWidth(200);
         TableColumn<ReportView, Integer> cityCol = new TableColumn<>("Стартовый город");
         cityCol.setMinWidth(150);
         TableColumn<ReportView, Double> alCol = new TableColumn<>("Вес следа феромона");
@@ -143,18 +145,22 @@ public class ReportController {
         pCol.setMinWidth(150);
         TableColumn<ReportView, Integer> iterCol = new TableColumn<>("Время жизни колонии");
         iterCol.setMinWidth(100);
+        TableColumn<ReportView, Integer> eliteAntsCol = new TableColumn<>("Число элитных муравьев");
+        iterCol.setMinWidth(100);
         TableColumn<ReportView, Integer> lengthCol = new TableColumn<>("Кратчайший путь");
         lengthCol.setMinWidth(150);
 
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         sizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
+        antSizeCol.setCellValueFactory(new PropertyValueFactory<>("antsNumber"));
         cityCol.setCellValueFactory(new PropertyValueFactory<>("startNode"));
         alCol.setCellValueFactory(new PropertyValueFactory<>("al"));
         bCol.setCellValueFactory(new PropertyValueFactory<>("b"));
         pCol.setCellValueFactory(new PropertyValueFactory<>("p"));
         qCol.setCellValueFactory(new PropertyValueFactory<>("q"));
-        iterCol.setCellValueFactory(new PropertyValueFactory<>("iterationNumber"));
+        iterCol.setCellValueFactory(new PropertyValueFactory<>("iterationsNumber"));
         lengthCol.setCellValueFactory(new PropertyValueFactory<>("length"));
+        eliteAntsCol.setCellValueFactory(new PropertyValueFactory<>("eliteAntsNumber"));
 
         table.getColumns().addAll(nameCol, sizeCol, cityCol, alCol, bCol, pCol, qCol, iterCol, lengthCol);
 
@@ -176,12 +182,14 @@ public class ReportController {
 
             Parent root = fxmlLoader.load(getClass().getResource("../../view/htmlEditor.fxml").openStream());
             ReportEditorController controller = fxmlLoader.getController();
-            controller.setHTML(HTMLbuilding.htmlBuild(reportTableData, ""));
             Stage stage = new Stage();
+            controller.setWindow(((Node)event.getTarget()).getScene().getWindow());
+            controller.setParentController(this);
+            controller.setStage(stage);
+
             stage.setTitle("Report editor");
             stage.setScene(new Scene(root, 800, 600));
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -198,5 +206,23 @@ public class ReportController {
 //
 //           // HTMLbuilding.save(HTMLbuilding.htmlBuild(reportRealMap, file.getName() + "chart.png"), path);
 //        }
+    }
+
+    public void saveReport(Window window, String html) throws IOException {
+        System.out.println(html);
+        final FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showSaveDialog(window);
+
+        if (file != null) {
+            String path = file.getAbsolutePath();
+            WritableImage snapshot = reportChart.snapshot(new SnapshotParameters(), null);
+            BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            OutputStream b64 = Base64.getEncoder().wrap(os);
+            ImageIO.write(image, "png", b64);
+            String resultImage = os.toString("UTF-8");
+
+            HTMLbuilding.save(HTMLbuilding.htmlBuild(reportTableData, resultImage, html), path);
+        }
     }
 }
