@@ -54,7 +54,6 @@ public class ProblemController {
                 matrixOptionsController.setMatrix(problem.getDMatrix());
             }
         }
-
     }
 
     @FXML public void handleCreateNewProblem() {

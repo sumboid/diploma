@@ -2,13 +2,14 @@ package sample.controller.problem.internal;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class PathLength {
     private SimpleIntegerProperty a;
     private SimpleIntegerProperty b;
-    private SimpleDoubleProperty length;
+    private SimpleStringProperty length;
 
-    public PathLength(int a, int b, double length) {
+    public PathLength(int a, int b, String length) {
         this.setA(a);
         this.setB(b);
         this.setLength(length);
@@ -30,11 +31,11 @@ public class PathLength {
         this.b = new SimpleIntegerProperty(b);
     }
 
-    public double getLength() {
+    public String getLength() {
         return length.get();
     }
 
-    public void setLength(double length) {
-        this.length = new SimpleDoubleProperty(length);
+    public void setLength(String length) {
+        this.length = new SimpleStringProperty(length);
     }
 }

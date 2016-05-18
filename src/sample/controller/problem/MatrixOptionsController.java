@@ -1,17 +1,21 @@
 package sample.controller.problem;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import javafx.util.Callback;
 import sample.controller.problem.internal.MatrixConverter;
 import sample.controller.problem.internal.PathLength;
 import sample.model.algorithm.data.DistanzMatrix;
@@ -25,6 +29,7 @@ public class MatrixOptionsController {
     private Button saveButton;
 
     private DistanzMatrix matrix = null;
+    private ObservableList<PathLength> pathData = null;
 
     public void renderMatrix(DistanzMatrix matrix) {
         ((Pane) pane).getChildren().removeAll(self);
@@ -37,13 +42,32 @@ public class MatrixOptionsController {
 
         aCol.setCellValueFactory(new PropertyValueFactory<PathLength, Integer>("a"));
         bCol.setCellValueFactory(new PropertyValueFactory<PathLength, Integer>("b"));
-        lengthCol.setCellValueFactory(new PropertyValueFactory<PathLength, Integer>("length"));
+        lengthCol.setCellValueFactory(new PropertyValueFactory<PathLength, String>("length"));
+
+        lengthCol.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        lengthCol.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<PathLength, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<PathLength, String> t) {
+                        try {
+                            Double.parseDouble(t.getNewValue());
+                            t.getTableView().getItems().get(t.getTablePosition().getRow()).setLength(t.getNewValue());
+                        } catch (NumberFormatException e) {
+                            t.getTableView().getItems().get(t.getTablePosition().getRow()).setLength(t.getOldValue());
+                            t.getTableView().getColumns().get(0).setVisible(false);
+                            t.getTableView().getColumns().get(0).setVisible(true);
+                        }
+                    }
+                }
+        );
 
         aCol.setMinWidth(100);
         bCol.setMinWidth(100);
         lengthCol.setMinWidth(100);
 
-        table.setItems(MatrixConverter.matrixToPath(matrix));
+        pathData = MatrixConverter.matrixToPath(matrix);
+        table.setItems(pathData);
         table.getColumns().addAll(aCol, bCol, lengthCol);
 
 
@@ -99,7 +123,7 @@ public class MatrixOptionsController {
         this.saveButton = button;
     }
     public DistanzMatrix getMatrix() {
-        return this.matrix;
+        return MatrixConverter.pathToMatrix(pathData);
     }
     public void setMatrix(DistanzMatrix matrix) {
         this.matrix = matrix;
