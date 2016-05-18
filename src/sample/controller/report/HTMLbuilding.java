@@ -61,6 +61,7 @@ public class HTMLbuilding {
         StringBuilder builder =new StringBuilder();
         builder
                 .append("<head>")
+                    .append("<meta charset=\"utf-8\">")
                     .append("<style>")
                         .append(".report-table-container {")
                             .append("width: 100%;")
@@ -88,6 +89,7 @@ public class HTMLbuilding {
         StringBuilder builder =new StringBuilder();
 
         builder
+                .append("<!DOCTYPE html>")
                 .append("<html>")
                     .append(genHead())
                     .append("<body>")
