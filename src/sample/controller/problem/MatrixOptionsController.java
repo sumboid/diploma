@@ -129,4 +129,5 @@ public class MatrixOptionsController {
         this.matrix = matrix;
         renderMatrix(matrix);
     }
+
 }
