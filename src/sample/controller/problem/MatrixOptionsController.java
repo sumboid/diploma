@@ -7,20 +7,27 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import sample.controller.problem.internal.MatrixConverter;
 import sample.controller.problem.internal.PathLength;
+import sample.controller.report.ReportEditorController;
 import sample.model.algorithm.data.DistanzMatrix;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 public class MatrixOptionsController {
@@ -91,26 +98,30 @@ public class MatrixOptionsController {
         }
     }
 
-    @FXML public void handleGenerateMatrix() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Matrix size");
-        dialog.setHeaderText("Matrix size");
+    @FXML public void handleGenerateMatrix(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("view/htmlEditor.fxml"));
+            fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
 
-        Optional<String> result = dialog.showAndWait();
+            Parent root = fxmlLoader.load(getClass().getResource("../../view/generateDialog.fxml").openStream());
+            GenerateDialogController controller = fxmlLoader.getController();
+            Stage stage = new Stage();
+            controller.setStage(stage);
+            controller.setController(this);
 
-        if (result.isPresent()) {
-            int NODE_NUMBERS = 0;
-            try {
-                NODE_NUMBERS = Integer.parseInt(result.get());
-                if (NODE_NUMBERS > 1000) return;
-            } catch(java.lang.NumberFormatException e) {
-                return;
-            }
-
-            final DistanzMatrix matrix = DistanzMatrix.generate(NODE_NUMBERS, 1, 300);
-            this.matrix = matrix;
-            renderMatrix(matrix);
+            stage.setTitle("Параметры матрицы");
+            stage.setScene(new Scene(root, 400, 200));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    public void handleOkay(Integer size, Integer max, Integer min) {
+        final DistanzMatrix matrix = DistanzMatrix.generate(size, min, max);
+        this.matrix = matrix;
+        renderMatrix(matrix);
     }
 
     public void setParentContainer(Node pane) {

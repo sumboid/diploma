@@ -24,9 +24,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Callback;
 import javafx.util.Pair;
 import sample.controller.report.internal.ReportView;
 import sample.model.report.Report;
@@ -47,7 +49,7 @@ public class ReportController {
     private Map<String, XYChart.Series> seriesMap = new HashMap();
     private ObservableList<ReportView> reportTableData = FXCollections.observableArrayList();
     private Map<String, ReportView> reportTableMap = new HashMap<>();
-
+    private TableView table;
     public static final ObservableList reportsListData = FXCollections.observableArrayList();
 
     @FXML public void handleChooseReport(ActionEvent event) {
@@ -72,7 +74,9 @@ public class ReportController {
 
                     ReportView reportView = new ReportView(report);
                     reportTableData.add(reportView);
-                    reportTableMap.put(expParm + ": " + file.getAbsolutePath(), reportView);
+
+                    table.setVisible(false);
+                    table.setVisible(true);
                 }
             }
         }
@@ -125,7 +129,7 @@ public class ReportController {
 
     private void renderMatrix() {
         matrixPane.getChildren().clear();
-        TableView table = new TableView();
+        table = new TableView();
 
         TableColumn<ReportView, String> nameCol = new TableColumn<>("Название");
         nameCol.setMinWidth(100);
@@ -147,9 +151,31 @@ public class ReportController {
         iterCol.setMinWidth(100);
         TableColumn<ReportView, Integer> eliteAntsCol = new TableColumn<>("Число элитных муравьев");
         iterCol.setMinWidth(100);
-        TableColumn<ReportView, Integer> lengthCol = new TableColumn<>("Кратчайший путь");
+        TableColumn<ReportView, Integer> lengthCol = new TableColumn<>("Вес кратчайшего пути");
         lengthCol.setMinWidth(150);
+        TableColumn<ReportView, Integer> timeCol = new TableColumn<>("Время исполнения");
+        timeCol.setMinWidth(150);
+        TableColumn<ReportView, String> pathCol = new TableColumn<>("Кратчайший путь");
+        pathCol.setMinWidth(400);
 
+        nameCol.setCellFactory(param -> {
+            TableCell<ReportView, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(cell.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell ;
+        });
+        pathCol.setCellFactory(param -> {
+            TableCell<ReportView, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(cell.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell ;
+        });
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         sizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
         antSizeCol.setCellValueFactory(new PropertyValueFactory<>("antsNumber"));
@@ -161,8 +187,10 @@ public class ReportController {
         iterCol.setCellValueFactory(new PropertyValueFactory<>("iterationsNumber"));
         lengthCol.setCellValueFactory(new PropertyValueFactory<>("length"));
         eliteAntsCol.setCellValueFactory(new PropertyValueFactory<>("eliteAntsNumber"));
+        pathCol.setCellValueFactory(new PropertyValueFactory<>("path"));
+        timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
 
-        table.getColumns().addAll(nameCol, sizeCol, cityCol, alCol, bCol, pCol, qCol, iterCol, lengthCol);
+        table.getColumns().addAll(nameCol, timeCol, sizeCol, antSizeCol, eliteAntsCol, cityCol, alCol, bCol, pCol, qCol, iterCol, lengthCol, pathCol);
 
         AnchorPane.setTopAnchor(table, 0.0);
         AnchorPane.setBottomAnchor(table, 0.0);

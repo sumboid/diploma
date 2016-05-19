@@ -92,6 +92,7 @@ public class RuntimeController {
             String fileName=file.getName();
             this.problem = (Problem) FileWorker.readObjectFromFile(path);
             problemName.setText(problem.getProblemName());
+            startButton.setDisable(false);
         }
     }
 
@@ -133,7 +134,7 @@ public class RuntimeController {
     @FXML
     public void initialize() {
         series = new XYChart.Series();
-        series.setName("Минимальная длина пути на текущей итерации");
+        series.setName("Минимальная длина пути");
         realtimeChart.getData().add(series);
         setParams(new Parameters());
     }

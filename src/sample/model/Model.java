@@ -108,6 +108,7 @@ public class Model {
                 }
 
                 Report report = new Report(problem, params, bestRouteRun,bestLength,grafik);
+                report.setTime(time);
                 System.out.println("Interesting");
                 controller.endExecution(report);
                 return 10;

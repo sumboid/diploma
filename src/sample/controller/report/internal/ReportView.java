@@ -2,10 +2,14 @@ package sample.controller.report.internal;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import sample.model.algorithm.data.Parameters;
 import sample.model.problem.Problem;
 import sample.model.report.Report;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ReportView {
     private SimpleStringProperty name = new SimpleStringProperty();
@@ -19,6 +23,8 @@ public class ReportView {
     private SimpleDoubleProperty p = new SimpleDoubleProperty();
     private SimpleIntegerProperty iterationsNumber = new SimpleIntegerProperty();
     private SimpleIntegerProperty eliteAntsNumber = new SimpleIntegerProperty();
+    private SimpleLongProperty time = new SimpleLongProperty();
+    private SimpleStringProperty path = new SimpleStringProperty();
 
     public ReportView(Report report) {
         Problem problem = report.getProblem();
@@ -36,6 +42,42 @@ public class ReportView {
         setP(params.p);
         setIterationsNumber(params.lifeСycle);
         setEliteAntsNumber(params.eliteNumberAnt);
+
+        ArrayList<Integer> realPath = report.getBestRouteRun();
+        Integer pathSize = realPath.size();
+        Integer lastElement = realPath.get(pathSize - 1);
+        if (lastElement != 0) {
+            realPath.set(pathSize - 1, realPath.get(pathSize - 2));
+            realPath.set(pathSize - 2, lastElement);
+        }
+
+        path.set(realPath.stream().map(x -> Integer.toString(x)).collect(Collectors.joining(" -> ")));
+        setTime(report.getTime() / 1000);
+    }
+
+    public long getTime() {
+        return time.get();
+    }
+
+    public SimpleLongProperty timeProperty() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time.set(time);
+    }
+
+
+    public String getPath() {
+        return path.get();
+    }
+
+    public SimpleStringProperty pathProperty() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path.set(path);
     }
 
     public int getEliteAntsNumber() {

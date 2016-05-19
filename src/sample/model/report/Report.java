@@ -16,6 +16,8 @@ public class Report implements Serializable {
     double bestLength;
     Parameters parameters;
 
+    long time = 0;
+
     public Report(Problem problem, Parameters params, ArrayList<Integer> bestRouteRun, double bestLength, ArrayList<Double> grafik) {
         this.problem = problem;
         this.grafik= grafik;
@@ -72,7 +74,15 @@ public class Report implements Serializable {
         this.bestLength = bestLength;
     }
 
+    public void setBestLength(double bestLength) {
+        this.bestLength = bestLength;
+    }
 
+    public long getTime() {
+        return time;
+    }
 
-
+    public void setTime(long time) {
+        this.time = time;
+    }
 }

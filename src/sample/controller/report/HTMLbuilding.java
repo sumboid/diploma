@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class HTMLbuilding {
     private static String genTable(ObservableList<ReportView> reports) {
@@ -20,6 +21,7 @@ public class HTMLbuilding {
                     .append("<thead>")
                         .append("<tr>")
                             .append("<th>Название</th>")
+                            .append("<th>Время исполнения</th>")
                             .append("<th>Количество городов</th>")
                             .append("<th>Количество муравьев</th>")
                             .append("<th>Количество итераций</th>")
@@ -28,6 +30,7 @@ public class HTMLbuilding {
                             .append("<th>Вес расстояния</th>")
                             .append("<th>Q</th>")
                             .append("<th>Число элитных муравьев</th>")
+                            .append("<th>Длина кратчайшего путь</th>")
                             .append("<th>Кратчайший путь</th>")
                         .append("</tr>")
                     .append("</thead>");
@@ -36,6 +39,7 @@ public class HTMLbuilding {
             builder
                     .append("<tr>")
                         .append("<td>"+report.getName()+"</td>")
+                        .append("<td>"+report.getTime()+"</td>")
                         .append("<td>"+report.getSize() + "</td>")
                         .append("<td>"+report.getAntsNumber()+"</td>")
                         .append("<td>"+report.getIterationsNumber()+"</td>")
@@ -45,6 +49,7 @@ public class HTMLbuilding {
                         .append("<td>"+report.getQ()+"</td>")
                         .append("<td>"+report.getEliteAntsNumber()+"</td>")
                         .append("<td>"+report.getLength()+"</td>")
+                        .append("<td>"+report.getPath()+"</td>")
                     .append("</tr>");
         }
 
