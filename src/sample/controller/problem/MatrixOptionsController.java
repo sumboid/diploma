@@ -118,8 +118,10 @@ public class MatrixOptionsController {
         }
     }
 
-    public void handleOkay(Integer size, Integer max, Integer min) {
-        final DistanzMatrix matrix = DistanzMatrix.generate(size, min, max);
+    public void handleOkay(Integer size, Integer max, Integer min, boolean isSymmetric) {
+        final DistanzMatrix matrix = isSymmetric
+                ? DistanzMatrix.generate(size, min, max)
+                : DistanzMatrix.generateAssymetric(size, min, max);
         this.matrix = matrix;
         renderMatrix(matrix);
     }

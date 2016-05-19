@@ -107,8 +107,34 @@ public class DistanzMatrix implements java.io.Serializable {
             }
         }
 
+        for(int i=0;i<nv*nv;i++){
+            if (i%nv==0){System.out.println();}
+            System.out.print(data[i]+" ");
 
+        }
+        System.out.println();
+        return new DistanzMatrix(nv,nv,data);
+    }
 
+    public static DistanzMatrix generateAssymetric(int nv,int minRust,int maxRust){
+        double [] data=new double[nv*nv];
+        double [][]dataTemp=new double[nv][nv];
+        Random random=new Random();
+
+        for(int i=0;i<nv;i++){
+            for(int j=0;j<nv;j++){
+                if (i==j) {
+                    dataTemp[i][j] = 0;
+                } else{
+                    dataTemp[i][j]=(double)Math.round((minRust+(maxRust-minRust)*random.nextDouble())*100)/100;
+                }
+            }
+        }
+        for(int i=0;i<nv;i++){
+            for(int j=0;j<nv;j++){
+                data[i*nv+j]=dataTemp[i][j];
+            }
+        }
 
         for(int i=0;i<nv*nv;i++){
             if (i%nv==0){System.out.println();}

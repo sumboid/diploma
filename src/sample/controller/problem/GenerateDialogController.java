@@ -1,6 +1,7 @@
 package sample.controller.problem;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -8,6 +9,7 @@ public class GenerateDialogController {
     @FXML private TextField size;
     @FXML private TextField min;
     @FXML private TextField max;
+    @FXML private CheckBox symmetric;
 
     private MatrixOptionsController ctrl;
     private Stage stage;
@@ -32,7 +34,7 @@ public class GenerateDialogController {
 
     @FXML public void onOkay() {
         try {
-            this.ctrl.handleOkay(getMatrixSize(), getMin(), getMax());
+            this.ctrl.handleOkay(getMatrixSize(), getMin(), getMax(), symmetric.isSelected());
         } catch(java.lang.NumberFormatException e) {
                 return;
         }
