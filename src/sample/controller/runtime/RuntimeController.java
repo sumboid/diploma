@@ -31,7 +31,10 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class RuntimeController {
     @FXML private LineChart realtimeChart;
@@ -50,6 +53,10 @@ public class RuntimeController {
     @FXML private TextField TEXT_ENDWHILE;
     @FXML private TextField TEXT_lifeCycle;
     @FXML private TextField ELITE_SQUAD;
+
+    @FXML private Label time;
+    @FXML private Label path;
+    @FXML private Label pathLength;
 
     @FXML private ListView runtimeParameters;
 
@@ -93,6 +100,10 @@ public class RuntimeController {
             this.problem = (Problem) FileWorker.readObjectFromFile(path);
             problemName.setText(problem.getProblemName());
             startButton.setDisable(false);
+
+            this.time.setText("0");
+            this.path.setText("Неизвестно");
+            this.pathLength.setText("Неизвестно");
         }
     }
 
@@ -127,7 +138,7 @@ public class RuntimeController {
         series.getData().clear();
     }
 
-    public void setPoint(Double x, Double y) {
+    public void setPoint(int x, Double y) {
         series.getData().add(new XYChart.Data(x, y));
     }
 
@@ -141,5 +152,27 @@ public class RuntimeController {
 
     public void setModel(Model model) {
         this.model = model;
+    }
+
+    public void setPath(ArrayList<Integer> rpath) {
+        Integer pathSize = rpath.size();
+        Integer lastElement = rpath.get(pathSize - 1);
+        if (lastElement != 0) {
+            rpath.set(pathSize - 1, rpath.get(pathSize - 2));
+            rpath.set(pathSize - 2, lastElement);
+        }
+
+        String sp = rpath.stream().map(x -> Integer.toString(x)).collect(Collectors.joining(" -> "));
+        if (!Objects.equals(sp, this.path.getText())) {
+            this.path.setText(sp);
+        }
+    }
+
+    public void setPathLength(Double pathLength) {
+        this.pathLength.setText(Double.toString(pathLength));
+    }
+
+    public void setTime(Double time) {
+        this.time.setText(Double.toString(time));
     }
 }

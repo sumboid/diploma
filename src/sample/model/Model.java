@@ -23,7 +23,7 @@ public class Model {
         task = new Task<Integer>() {
             @Override
             public Integer call() {
-                long time =0,dTime=0;
+                long time =0;
                // String FILE_DMATRIX=fileDmatrix;
                // String FILE_PHER_MATRIX=filePherMatrix;
                 Cover cover=new Cover();//объект для обертки в методе Ants.move
@@ -78,13 +78,16 @@ public class Model {
                         }
                         if (topAnt != -2) {
                             topLength[lifetime] = (double) topLengthlocal;
-                            System.out.println(topLength[lifetime]);
+                            //System.out.println(topLength[lifetime]);
                         }
-                        dTime=System.currentTimeMillis()-time; //time
+                        final double dTime=System.currentTimeMillis()-time; //time
                         Thread.sleep(1);
-                        final double yoba = lifetime;
-                        Platform.runLater(() -> controller.setPoint(yoba,topLength[(int)yoba]));//risyem
-                        grafik.add(topLength[(int)yoba]);   ///save
+                        final int yoba = lifetime;
+
+                        Platform.runLater(() -> controller.setPoint(yoba,topLength[yoba]));//risyem
+                        Platform.runLater(() -> controller.setPathLength(topLength[yoba]));
+                        Platform.runLater(() -> controller.setTime(dTime / 1000));
+                        grafik.add(topLength[yoba]);   ///save
 
                         lifetime++;
                     } catch (InterruptedException e) {
@@ -103,6 +106,8 @@ public class Model {
                     }
                     System.out.println();
                     System.out.println("TOP LENGTH: " + topLengthlocal);
+                    final ArrayList<Integer> path = bestRoute;
+                    Platform.runLater(() -> controller.setPath(path));
                 } else {
                     System.out.println("Route not detected");
                 }
